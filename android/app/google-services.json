@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44682128705",
+    "project_id": "time-craft-fe519",
+    "storage_bucket": "time-craft-fe519.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44682128705:android:85e10f0c7fb0abf39a85c0",
+        "android_client_info": {
+          "package_name": "com.brototype.time_craft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44682128705-op8s3o6k2me2tgcnsuk8gfndbcse9ndo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMd3sa50ophrUp0I_Rvmmb-9OgIZNhVkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44682128705-ju5r0cr4njc32fc0fng93ukcm9rnnot1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
