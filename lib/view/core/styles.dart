@@ -21,4 +21,4 @@ sizedboxwithheight(double? height) {
   );
 }
 
-List<String> varients = ['Red', 'Brown', 'Silver', 'Gold', 'Black', 'White'];
+// List<String> varients = ['Red', 'Brown', 'Silver', 'Gold', 'Black', 'White'];

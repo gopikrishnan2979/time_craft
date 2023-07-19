@@ -3,8 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ProductDeliveryAndDetails extends StatelessWidget {
-  const ProductDeliveryAndDetails({super.key});
-
+  const ProductDeliveryAndDetails(
+      {super.key, required this.isAnalog, required this.isWaterResistant});
+  final bool isAnalog;
+  final bool isWaterResistant;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,10 +16,8 @@ class ProductDeliveryAndDetails extends StatelessWidget {
           children: [
             Text(
               'FREE DELIVERY',
-              style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green),
+              style:
+                  GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green),
             ),
             const SizedBox(
               height: 20,
@@ -47,8 +47,8 @@ class ProductDeliveryAndDetails extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _detailtext('Yes', true),
-                _detailtext('Analog', true),
+                _detailtext(isWaterResistant ? 'Yes' : 'No', true),
+                _detailtext(isAnalog ? 'Analog' : 'Digital', true),
               ],
             ),
           ],
@@ -72,8 +72,7 @@ class ProductDeliveryAndDetails extends StatelessWidget {
       sizedboxwithheight(khieght * 0.01),
       Text(
         text,
-        style: GoogleFonts.inter(
-            fontSize: 12, color: isblack ? black : Colors.grey),
+        style: GoogleFonts.inter(fontSize: 12, color: isblack ? black : Colors.grey),
       )
     ]);
   }

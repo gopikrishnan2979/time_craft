@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_craft/model/product_argument.dart';
 import 'package:time_craft/view/screens/cart/cart_screen.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
 import 'package:time_craft/view/screens/checkout/order_placed.dart';
@@ -38,7 +39,10 @@ class AppRoute {
       case SearchScrn.routename:
         return MaterialPageRoute(builder: (ctx) => const SearchScrn());
       case ProductDetails.routename:
-        return MaterialPageRoute(builder: (ctx) => const ProductDetails());
+        return MaterialPageRoute(builder: (ctx) {
+          final arg = routeSettings.arguments as ProductArgument;
+          return ProductDetails(data: arg);
+        });
       case CheckOutScrn.routename:
         return MaterialPageRoute(builder: (ctx) => const CheckOutScrn());
       case OrderPlaced.routename:

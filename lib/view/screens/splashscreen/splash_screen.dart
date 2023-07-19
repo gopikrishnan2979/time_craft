@@ -26,13 +26,12 @@ class SplashScreen extends StatelessWidget {
   wait(BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
     Timer(const Duration(milliseconds: 2000), () {
-      if (user?.uid == null) {
+      if (user == null) {
         Navigator.of(context).pushReplacementNamed(SignInPage.routename);
       } else {
         Navigator.of(context).pushReplacementNamed(Home.routename);
       }
     });
   }
-
 
 }

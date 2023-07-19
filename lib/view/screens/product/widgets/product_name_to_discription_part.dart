@@ -3,42 +3,45 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ProductNameToDiscription extends StatelessWidget {
-  const ProductNameToDiscription({super.key});
-
+  const ProductNameToDiscription({super.key,required this.discount,required this.discription,required this.name,required this.price, required this.smallDiscription});
+  final int price;
+  final int discount;
+  final String name;
+  final String smallDiscription;
+  final String discription;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Product name',
+          name,
           style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         sizedboxwithheight(khieght * 0.015),
         Text(
-          'Minimalist watch for men',
+          smallDiscription,
           style: GoogleFonts.inter(fontWeight: FontWeight.bold),
         ),
         sizedboxwithheight(khieght * 0.015),
         Row(
           children: [
             Text(
-              '70% OFF',
-              style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold, color: Colors.green),
+              '$discount OFF',
+              style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: Colors.green),
             ),
             SizedBox(
               width: kwidth * 0.08,
             ),
             Text(
-              '₹799',
+              '₹$price',
               style: GoogleFonts.inter(fontWeight: FontWeight.bold),
             )
           ],
         ),
         _titletext('Discription'),
         Text(
-          'Introducing our sleek and stylish watch, the perfect accessory to complement any outfit. With its elegant design and superior craftsmanship, this timepiece will make a statement wherever you go.',
+discription,
           style: GoogleFonts.inter(fontSize: 12),
           textAlign: TextAlign.justify,
         ),

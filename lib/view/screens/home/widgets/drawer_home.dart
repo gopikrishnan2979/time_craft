@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/cart/cart_screen.dart';
@@ -35,7 +34,6 @@ class HomeDrawer extends StatelessWidget {
             ),
             DrawerTile(
                 ontap: () {
-                  log('pressed wishlist');
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(WishlistScreen.routename);
                 },
@@ -43,7 +41,6 @@ class HomeDrawer extends StatelessWidget {
                 title: 'Wishlist'),
             DrawerTile(
                 ontap: () {
-                  log('pressed cart');
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(Cart.routename);
                 },
@@ -51,7 +48,6 @@ class HomeDrawer extends StatelessWidget {
                 title: 'Cart'),
             DrawerTile(
                 ontap: () {
-                  log('pressed orders');
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(MyOrders.routename);
                 },
@@ -61,7 +57,6 @@ class HomeDrawer extends StatelessWidget {
                 ontap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(MyProfile.routename);
-                  log('pressed profile');
                 },
                 icon: const Icon(Icons.person),
                 title: 'Profile'),
@@ -69,7 +64,6 @@ class HomeDrawer extends StatelessWidget {
                 ontap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(Settings.routename);
-                  log('pressed Settings');
                 },
                 icon: const Icon(Icons.settings),
                 title: 'Settings'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_craft/model/product_argument.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
 import 'package:time_craft/view/screens/product/widgets/add_to_cart_alert.dart';
@@ -6,7 +7,8 @@ import 'package:time_craft/view/common/widgets/appbar.dart';
 import 'package:time_craft/view/screens/product/widgets/scrolling_part.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  const ProductDetails({super.key,required this.data});
+  final ProductArgument data;
 
   static const routename = '/Product';
   @override
@@ -17,7 +19,7 @@ class ProductDetails extends StatelessWidget {
         appBar: const AppbarCom(title: 'Product'),
         body: Column(
           children: [
-            const ProductScrollingPart(),
+             ProductScrollingPart(data: data),
             SizedBox(
               height: khieght * 0.08,
               child: Row(

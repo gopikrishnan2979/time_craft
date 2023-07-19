@@ -12,16 +12,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       child: DefaultTabController(
         length: 4,
         child: Scaffold(
-          appBar: HomeAppbar(),
-          drawer: HomeDrawer(),
+          appBar: const HomeAppbar(),
+          drawer: const HomeDrawer(),
           body: TabBarView(children: [
-            AllScreens(),
-            MensScreen(),
-            WomenScreens(),
+            const AllScreens(),
+            const MensScreen(),
+            const WomenScreens(),
             KidsScreen(),
           ]),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:time_craft/services/firebase/auth.dart';
 import 'package:time_craft/view/core/styles.dart';
-import 'package:time_craft/view/screens/home/home.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton(
@@ -24,21 +23,7 @@ class SignInButton extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () {
                   if (formkey.currentState!.validate()) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => AlertDialog(
-                        content: SizedBox(
-                          height: khieght * 0.2,
-                          child: Center(
-                            child: SizedBox(
-                                height: khieght * 0.05,
-                                width: khieght * 0.05,
-                                child: const CircularProgressIndicator()),
-                          ),
-                        ),
-                      ),
-                    );
+                    loading(context);
                     Auth(context: context).signInexistingWithEmailAndPassword(
                         email: emailcontroller.text, password: passwordcontroller.text);
                   }
@@ -52,7 +37,8 @@ class SignInButton extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed(Home.routename);
+                loading(context);
+                Auth(context: context).signInUsingGoogle();
               },
               style: buttonstyle(),
               child: buttonchild(text: 'Continue with google'))
@@ -79,5 +65,23 @@ class SignInButton extends StatelessWidget {
         shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
         backgroundColor: const MaterialStatePropertyAll(black));
+  }
+
+  loading(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          height: khieght * 0.2,
+          child: Center(
+            child: SizedBox(
+                height: khieght * 0.05,
+                width: khieght * 0.05,
+                child: const CircularProgressIndicator()),
+          ),
+        ),
+      ),
+    );
   }
 }

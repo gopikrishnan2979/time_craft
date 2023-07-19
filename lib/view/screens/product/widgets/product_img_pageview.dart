@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ProductPageview extends StatelessWidget {
-  const ProductPageview({super.key});
-
+  const ProductPageview({super.key, required this.imagelist});
+  final List imagelist;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -13,11 +13,11 @@ class ProductPageview extends StatelessWidget {
         itemBuilder: (context, index) => SizedBox(
           width: double.infinity,
           child: Image.network(
-            imgpath,
+            imagelist[index],
             fit: BoxFit.fitHeight,
           ),
         ),
-        itemCount: 3,
+        itemCount: imagelist.length,
       ),
     );
   }
