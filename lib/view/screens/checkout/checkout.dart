@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/order_placed.dart';
 import 'package:time_craft/view/screens/checkout/widgets/payment_part.dart';
@@ -6,7 +7,8 @@ import 'package:time_craft/view/screens/checkout/widgets/scrolling_part.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
 
 class CheckOutScrn extends StatelessWidget {
-  const CheckOutScrn({super.key});
+  const CheckOutScrn({super.key,required this.checkoutData});
+  final CheckoutModel checkoutData;
   static const String routename = '/Checkout';
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class CheckOutScrn extends StatelessWidget {
         appBar: const AppbarCom(title: 'Checkout'),
         body: Column(
           children: [
-            const ScrollingPart(),
+            ScrollingPart(itemlist: checkoutData.itemlist,isfromProductdetails:checkoutData.isfromProductDetails ,),
             const PaymentPart(),
             const Divider(),
             Row(
@@ -46,8 +48,7 @@ class CheckOutScrn extends StatelessWidget {
           Navigator.of(context).pushReplacementNamed(OrderPlaced.routename);
         },
         style: ButtonStyle(
-            fixedSize:
-                MaterialStatePropertyAll(Size(kwidth * 0.6, khieght * 0.01)),
+            fixedSize: MaterialStatePropertyAll(Size(kwidth * 0.6, khieght * 0.01)),
             backgroundColor: const MaterialStatePropertyAll(black),
             foregroundColor: const MaterialStatePropertyAll(white),
             shape: const MaterialStatePropertyAll(ContinuousRectangleBorder())),

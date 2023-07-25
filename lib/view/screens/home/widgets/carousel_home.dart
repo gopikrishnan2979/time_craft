@@ -5,7 +5,7 @@ import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class CarouselHome extends StatelessWidget {
-  CarouselHome({super.key});
+  const CarouselHome({super.key});
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

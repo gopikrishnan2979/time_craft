@@ -3,7 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ProductNameToDiscription extends StatelessWidget {
-  const ProductNameToDiscription({super.key,required this.discount,required this.discription,required this.name,required this.price, required this.smallDiscription});
+  const ProductNameToDiscription(
+      {super.key,
+      required this.discount,
+      required this.discription,
+      required this.name,
+      required this.price,
+      required this.smallDiscription});
   final int price;
   final int discount;
   final String name;
@@ -27,7 +33,7 @@ class ProductNameToDiscription extends StatelessWidget {
         Row(
           children: [
             Text(
-              '$discount OFF',
+              '$discount% OFF',
               style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: Colors.green),
             ),
             SizedBox(
@@ -41,7 +47,7 @@ class ProductNameToDiscription extends StatelessWidget {
         ),
         _titletext('Discription'),
         Text(
-discription,
+          discription,
           style: GoogleFonts.inter(fontSize: 12),
           textAlign: TextAlign.justify,
         ),

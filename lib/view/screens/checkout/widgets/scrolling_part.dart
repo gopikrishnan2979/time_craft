@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/product/qty_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/widgets/address_adding.dart';
 import 'package:time_craft/view/screens/checkout/widgets/checkout_item_tile.dart';
 
 class ScrollingPart extends StatelessWidget {
-  const ScrollingPart({super.key});
-
+  const ScrollingPart({super.key, required this.itemlist,required this.isfromProductdetails});
+  final List<String> itemlist;
+  final bool isfromProductdetails;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: kwidth * 0.05, vertical: khieght * 0.02),
+          padding: EdgeInsets.symmetric(horizontal: kwidth * 0.05, vertical: khieght * 0.02),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,9 +63,15 @@ class ScrollingPart extends StatelessWidget {
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => const CheckoutItemTile(),
+                itemBuilder: (context, index) => ChangeNotifierProvider(
+                  create: (context) => QtyController(),
+                  child: CheckoutItemTile(
+                    docId: itemlist[index],
+                    isfromProductdetails: isfromProductdetails,
+                  ),
+                ),
                 separatorBuilder: (context, index) => const Divider(),
-                itemCount: 2,
+                itemCount: itemlist.length,
               )
             ],
           ),

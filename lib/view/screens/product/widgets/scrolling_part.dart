@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:time_craft/controller/product/varient_controller.dart';
 import 'package:time_craft/model/product_argument.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/product/widgets/product_delivery_and_details.dart';
@@ -37,11 +35,8 @@ class ProductScrollingPart extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kwidth * 0.08),
-              child: ChangeNotifierProvider(
-                create: (context) => VarientController(),
-                child: ProductVarientsToLast(
-                  varients: data.data['varients'],
-                ),
+              child: ProductVarientsToLast(
+                varients: data.data['varients'],
               ),
             ),
           ],

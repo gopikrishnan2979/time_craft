@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/payment_selector/payment_selector.dart';
+import 'package:time_craft/controller/payment_selector.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/routes/route.dart';
 import 'package:time_craft/view/screens/splashscreen/splash_screen.dart';

@@ -24,6 +24,7 @@ class WishlistScreen extends StatelessWidget {
               Navigator.of(context).pushNamed(ProductDetails.routename);
             },
             child: const ItemCard(
+              productId: '',
               name: 'Bug',
               smallDiscription: 'Fix this',
                 imagepath:

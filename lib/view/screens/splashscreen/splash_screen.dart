@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/screens/home/home.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 
@@ -29,9 +30,9 @@ class SplashScreen extends StatelessWidget {
       if (user == null) {
         Navigator.of(context).pushReplacementNamed(SignInPage.routename);
       } else {
+        FirebaseInstanceModel.uid = user.uid;
         Navigator.of(context).pushReplacementNamed(Home.routename);
       }
     });
   }
-
 }

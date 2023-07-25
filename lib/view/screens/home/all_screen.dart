@@ -15,8 +15,8 @@ class AllScreens extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
             child: CarouselHome(),
           ),
           StreamBuilder(
@@ -41,9 +41,12 @@ class AllScreens extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) => InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed(ProductDetails.routename,arguments: ProductArgument(data: snapshot.data!.docs[index]));
+                    Navigator.of(context).pushNamed(ProductDetails.routename,
+                        arguments: ProductArgument(
+                            data: snapshot.data!.docs[index], id: snapshot.data!.docs[index].id));
                   },
                   child: ItemCard(
+                    productId: snapshot.data!.docs[index].id,
                     name: snapshot.data!.docs[index]['name'],
                     imagepath: snapshot.data!.docs[index]['imagelist'][0],
                     smallDiscription: snapshot.data!.docs[index]['smalldiscription'],

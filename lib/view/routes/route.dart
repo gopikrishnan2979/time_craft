@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/product/qty_controller.dart';
+import 'package:time_craft/controller/product/varient_controller.dart';
+import 'package:time_craft/controller/search_controller.dart';
+import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/model/product_argument.dart';
 import 'package:time_craft/view/screens/cart/cart_screen.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
@@ -37,19 +42,30 @@ class AppRoute {
       case Settings.routename:
         return MaterialPageRoute(builder: (ctx) => const Settings());
       case SearchScrn.routename:
-        return MaterialPageRoute(builder: (ctx) => const SearchScrn());
+        return MaterialPageRoute(
+          builder: (ctx) => ChangeNotifierProvider(
+            create: (context) => SearchProvider(),
+            child:  SearchScrn(),
+          ),
+        );
       case ProductDetails.routename:
         return MaterialPageRoute(builder: (ctx) {
           final arg = routeSettings.arguments as ProductArgument;
-          return ProductDetails(data: arg);
+
+          return MultiProvider(providers: [
+            ChangeNotifierProvider(create: (context) => QtyController()),
+            ChangeNotifierProvider(create: (context) => VarientController())
+          ], child: ProductDetails(data: arg));
         });
       case CheckOutScrn.routename:
-        return MaterialPageRoute(builder: (ctx) => const CheckOutScrn());
+        return MaterialPageRoute(builder: (ctx) {
+          final arg = routeSettings.arguments as CheckoutModel;
+          return CheckOutScrn(checkoutData: arg);
+        });
       case OrderPlaced.routename:
         return MaterialPageRoute(builder: (ctx) => const OrderPlaced());
       case ReviewScreen.routename:
         return MaterialPageRoute(builder: (ctx) => const ReviewScreen());
-
       default:
         return _errorRoute();
     }

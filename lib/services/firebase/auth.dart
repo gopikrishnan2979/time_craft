@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,7 +20,7 @@ class Auth {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
         User? user = value.user;
-        FirebaseInstanceModel.Uid = user!.uid;
+        FirebaseInstanceModel.uid = user!.uid;
         FirebaseInstanceModel.firestore.collection('users').doc(user.uid).set({
           'name': username,
           'email': email,
@@ -35,6 +34,8 @@ class Auth {
     } on FirebaseException catch (e) {
       Navigator.of(context).pop();
       alertshower(e);
+    }catch (e) {
+      log(e.toString());
     }
   }
 
@@ -44,6 +45,7 @@ class Auth {
   }) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) {
+        FirebaseInstanceModel.uid = value.user!.uid;
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(Home.routename);
         return value;
@@ -67,7 +69,8 @@ class Auth {
       );
       await _auth.signInWithCredential(credential).then((value) {
         User? user = value.user;
-        FirebaseInstanceModel.firestore.collection('users').doc(user!.uid).set({
+        FirebaseInstanceModel.uid = user!.uid;
+        FirebaseInstanceModel.firestore.collection('users').doc(user.uid).set({
           'name': user.displayName,
           'email': user.email,
           'phone': user.phoneNumber,

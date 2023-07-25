@@ -3,12 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.imagepath, required this.discount, required this.price,required this.name,required this.smallDiscription});
+  const ItemCard(
+      {super.key,
+      required this.productId,
+      required this.imagepath,
+      required this.discount,
+      required this.price,
+      required this.name,
+      required this.smallDiscription});
   final String imagepath;
   final int discount;
   final int price;
   final String name;
   final String smallDiscription;
+  final String productId;
 
   @override
   Widget build(BuildContext context) {

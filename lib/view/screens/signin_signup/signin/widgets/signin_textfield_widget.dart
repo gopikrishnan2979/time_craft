@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/obsecure_controller/obsecure_controller.dart';
+import 'package:time_craft/controller/obsecure_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/textfield_widget.dart';
 

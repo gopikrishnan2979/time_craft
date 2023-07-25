@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/payment_selector/payment_selector.dart';
+import 'package:time_craft/controller/payment_selector.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/widgets/payment_tiles.dart';
 
@@ -18,7 +16,6 @@ class PaymentPart extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: kwidth * 0.05),
       child: Consumer<PaymentSelector>(
         builder: (context, selector, child) {
-          log('message');
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
