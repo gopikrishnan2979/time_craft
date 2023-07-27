@@ -17,26 +17,26 @@ class ProductScrollingPart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProductPageview(imagelist: data.data['imagelist']),
+            ProductPageview(imagelist: data.data.imagelist),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kwidth * 0.08),
               child: ProductNameToDiscription(
-                discount: data.data['discount'],
-                discription: data.data['discription'],
-                name: data.data['name'],
-                price: data.data['price'],
-                smallDiscription: data.data['smalldiscription'],
+                discount: data.data.discount,
+                discription: data.data.discription,
+                name: data.data.name,
+                price: data.data.price,
+                smallDiscription: data.data.smalldiscription,
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kwidth * 0.08),
               child: ProductDeliveryAndDetails(
-                  isAnalog: data.data['isAnalog'], isWaterResistant: data.data['isWaterResistant']),
+                  isAnalog: data.data.isanalog, isWaterResistant: data.data.isWaterResistant),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kwidth * 0.08),
               child: ProductVarientsToLast(
-                varients: data.data['varients'],
+                varients: data.data.varients,
               ),
             ),
           ],

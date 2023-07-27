@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/screens/home/home.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
@@ -26,13 +28,17 @@ class SplashScreen extends StatelessWidget {
 
   wait(BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
-    Timer(const Duration(milliseconds: 2000), () {
-      if (user == null) {
+
+    if (user == null) {
+      Timer(const Duration(seconds: 2), () {
         Navigator.of(context).pushReplacementNamed(SignInPage.routename);
-      } else {
-        FirebaseInstanceModel.uid = user.uid;
+      });
+    } else {
+      FirebaseInstanceModel.uid = user.uid;
+      await Provider.of<WishlistController>(context, listen: false).getwishlist();
+      Timer(const Duration(seconds: 2), () {
         Navigator.of(context).pushReplacementNamed(Home.routename);
-      }
-    });
+      });
+    }
   }
 }

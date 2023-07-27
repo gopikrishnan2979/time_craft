@@ -7,5 +7,7 @@ class FirebaseInstanceModel {
   static final CollectionReference brands = firestore.collection('brands');
 
   static final CollectionReference cart = firestore.collection('cart');
+  static final CollectionReference wishlist = firestore.collection('wishlist');
+
   static late String uid;
 }

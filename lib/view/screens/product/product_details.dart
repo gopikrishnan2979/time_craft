@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/wishlist_controller.dart';
+import 'package:time_craft/controller/wishlist_icon_controller.dart';
 import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/model/product_argument.dart';
 import 'package:time_craft/view/core/styles.dart';
@@ -14,6 +17,7 @@ class ProductDetails extends StatelessWidget {
   static const routename = '/Product';
   @override
   Widget build(BuildContext context) {
+    WishlistController wishlistCon = Provider.of<WishlistController>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: white,
@@ -22,7 +26,27 @@ class ProductDetails extends StatelessWidget {
           action: [
             Padding(
               padding: EdgeInsets.only(right: kwidth * 0.03),
-              child: IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border_outlined)),
+              child: ChangeNotifierProvider.value(
+                value:data.iconController,
+                child:
+                    Consumer<WishlistIconController>(builder: (context, iconcontroller, child) {
+                  return IconButton(
+                    onPressed: () {
+                      if (iconcontroller.isInWishlist) {
+                        wishlistCon.remove(data.id);
+                      } else {
+                        wishlistCon.add(data.id);
+                      }
+                      iconcontroller.toggle(context);
+                    },
+                    icon: Icon(
+                      iconcontroller.isInWishlist ? Icons.favorite : Icons.favorite_border,
+                      size: 28,
+                      color: black,
+                    ),
+                  );
+                }),
+              ),
             )
           ],
         ),
@@ -54,10 +78,10 @@ class ProductDetails extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (c) => AddToCartAlert(
-                            name: data.data['name'],
-                            price: data.data['price'],
-                            varientList: data.data['varients'],
-                            productId: data.data.id,
+                            name: data.data.name,
+                            price: data.data.price,
+                            varientList: data.data.varients,
+                            productId: data.id,
                             ctx: context),
                       );
                     },

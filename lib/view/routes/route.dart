@@ -45,7 +45,7 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (ctx) => ChangeNotifierProvider(
             create: (context) => SearchProvider(),
-            child:  SearchScrn(),
+            child:  const SearchScrn(),
           ),
         );
       case ProductDetails.routename:

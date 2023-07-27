@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/screens/home/home.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
@@ -34,7 +38,7 @@ class Auth {
     } on FirebaseException catch (e) {
       Navigator.of(context).pop();
       alertshower(e);
-    }catch (e) {
+    } catch (e) {
       log(e.toString());
     }
   }
@@ -44,8 +48,9 @@ class Auth {
     required String password,
   }) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) {
+      await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
         FirebaseInstanceModel.uid = value.user!.uid;
+        await Provider.of<WishlistController>(context, listen: false).getwishlist();
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(Home.routename);
         return value;
@@ -67,7 +72,7 @@ class Auth {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      await _auth.signInWithCredential(credential).then((value) {
+      await _auth.signInWithCredential(credential).then((value) async {
         User? user = value.user;
         FirebaseInstanceModel.uid = user!.uid;
         FirebaseInstanceModel.firestore.collection('users').doc(user.uid).set({
@@ -76,6 +81,7 @@ class Auth {
           'phone': user.phoneNumber,
           'image': user.photoURL,
         });
+        await Provider.of<WishlistController>(context, listen: false).getwishlist();
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(Home.routename);
       });

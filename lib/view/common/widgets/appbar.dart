@@ -32,8 +32,7 @@ class AppbarCom extends StatelessWidget implements PreferredSizeWidget {
           )),
       title: Text(
         title,
-        style: GoogleFonts.inter(
-            color: black, fontSize: 20, fontWeight: FontWeight.bold),
+        style: GoogleFonts.inter(color: black, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       actions: action ?? [],
     );

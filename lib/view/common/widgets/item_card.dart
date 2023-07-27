@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/wishlist_controller.dart';
+import 'package:time_craft/controller/wishlist_icon_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ItemCard extends StatelessWidget {
@@ -20,6 +23,7 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WishlistController wishlistCon = Provider.of<WishlistController>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -38,17 +42,26 @@ class ItemCard extends StatelessWidget {
           Stack(
             children: [
               Image.network(
-                  width: kwidth * 0.5, height: khieght * 0.2, fit: BoxFit.cover, imagepath),
+                  width: kwidth * 0.5, height: khieght * 0.2, fit: BoxFit.fitHeight, imagepath),
               Positioned(
                 right: 0,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite_border,
-                    size: 28,
-                    color: black,
-                  ),
-                ),
+                child: Consumer<WishlistIconController>(builder: (context, iconcontroller, child) {
+                  return IconButton(
+                    onPressed: () {
+                      if (iconcontroller.isInWishlist) {
+                        wishlistCon.remove(productId);
+                      } else {
+                        wishlistCon.add(productId);
+                      }
+                      iconcontroller.toggle(context);
+                    },
+                    icon: Icon(
+                      iconcontroller.isInWishlist ? Icons.favorite : Icons.favorite_border,
+                      size: 28,
+                      color: black,
+                    ),
+                  );
+                }),
               )
             ],
           ),

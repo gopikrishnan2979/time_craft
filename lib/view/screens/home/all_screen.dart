@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/wishlist_controller.dart';
+import 'package:time_craft/controller/wishlist_icon_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/model/product_argument.dart';
+import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/home/widgets/carousel_home.dart';
@@ -39,21 +43,36 @@ class AllScreens extends StatelessWidget {
                   left: 5,
                   right: 5,
                 ),
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(ProductDetails.routename,
-                        arguments: ProductArgument(
-                            data: snapshot.data!.docs[index], id: snapshot.data!.docs[index].id));
-                  },
-                  child: ItemCard(
-                    productId: snapshot.data!.docs[index].id,
-                    name: snapshot.data!.docs[index]['name'],
-                    imagepath: snapshot.data!.docs[index]['imagelist'][0],
-                    smallDiscription: snapshot.data!.docs[index]['smalldiscription'],
-                    discount: snapshot.data!.docs[index]['discount'],
-                    price: snapshot.data!.docs[index]['price'],
-                  ),
-                ),
+                itemBuilder: (context, index) {
+                  WishlistController wishlistCon =
+                      Provider.of<WishlistController>(context, listen: false);
+                  var data = snapshot.data!.docs[index];
+                  late WishlistIconController iconController;
+                  return ChangeNotifierProvider(
+                    create: (context) {
+                      iconController = WishlistIconController(
+                          isInWishlist: wishlistCon.wishlist.contains(data.id), productid: data.id);
+                      return iconController;
+                    },
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(ProductDetails.routename,
+                            arguments: ProductArgument(
+                                iconController: iconController,
+                                data: productmodelMaker(data),
+                                id: snapshot.data!.docs[index].id));
+                      },
+                      child: ItemCard(
+                        productId: data.id,
+                        name: data['name'],
+                        imagepath: data['imagelist'][0],
+                        smallDiscription: data['smalldiscription'],
+                        discount: data['discount'],
+                        price: data['price'],
+                      ),
+                    ),
+                  );
+                },
                 itemCount: snapshot.data!.docs.length,
               );
             },

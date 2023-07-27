@@ -25,8 +25,6 @@ class CartService {
               SetOptions(merge: true)).then((value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            // margin:
-            //     EdgeInsets.only(bottom: khieght * 0.05, left: kwidth * 0.04, right: kwidth * 0.04),
             behavior: SnackBarBehavior.floating,
             duration: const Duration(milliseconds: 800),
             margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
@@ -39,7 +37,7 @@ class CartService {
                     style: GoogleFonts.ptSerif(color: white, fontSize: 16),
                   )),
             ),
-            backgroundColor: Color.fromARGB(122, 0, 0, 0)));
+            backgroundColor:const Color.fromARGB(122, 0, 0, 0)));
       });
       // log(obj.toString());
     } on FirebaseException catch (e) {
