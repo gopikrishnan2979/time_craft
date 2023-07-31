@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:time_craft/model/firebase_instance_model.dart';
+import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/cart/cart_screen.dart';
 import 'package:time_craft/view/screens/home/widgets/drawer_tile.dart';
@@ -12,23 +15,42 @@ class HomeDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String backgroundImage =
+        'https://htmlcolorcodes.com/assets/images/colors/bright-blue-color-solid-background-1920x1080.png';
     return Drawer(
       child: SizedBox(
         child: ListView(
           children: [
-            const DrawerHeader(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                    radius: 38,
-                    backgroundImage: AssetImage('assets/images/unknown.jpg')),
-                SizedBox(
-                  height: 15,
-                ),
-                Text('User name'),
-              ],
-            )),
+            DrawerHeader(
+              child: StreamBuilder(
+                stream: FirebaseInstanceModel.user.doc(FirebaseInstanceModel.uid).snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return const Loading();
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: khieght * 0.045,
+                        backgroundImage: NetworkImage(snapshot.data?['image'] ?? backgroundImage),
+                        child: Center(
+                          child: snapshot.data!['image'] == null
+                              ? Text(
+                                  snapshot.data!['name'][0],
+                                  style:
+                                      GoogleFonts.inter(fontSize: 50, fontWeight: FontWeight.w400),
+                                )
+                              : const SizedBox(),
+                        ),
+                      ),
+                      SizedBox(height: khieght * 0.01),
+                      Text(snapshot.data!['name']),
+                    ],
+                  );
+                },
+              ),
+            ),
             SizedBox(
               height: khieght * 0.02,
             ),

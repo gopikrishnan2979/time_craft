@@ -32,35 +32,47 @@ class MyProfile extends StatelessWidget {
                   return Column(
                     children: [
                       SizedBox(
-                          height: khieght * 0.28,
-                          child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: CircleAvatar(
-                                radius: khieght * 0.05,
-                                backgroundImage:
-                                    NetworkImage(snapshot.data?['image'] ?? backgroundImage),
-                                child: Center(
-                                  child: snapshot.data!['image'] == null
-                                      ? Text(
-                                          snapshot.data!['name'][0],
-                                          style: GoogleFonts.inter(
-                                            fontSize: 50,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                ),
-                              ))),
+                        height: khieght * 0.28,
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CircleAvatar(
+                            radius: khieght * 0.05,
+                            backgroundImage:
+                                NetworkImage(snapshot.data?['image'] ?? backgroundImage),
+                            child: Center(
+                              child: snapshot.data!['image'] == null
+                                  ? Text(
+                                      snapshot.data!['name'][0],
+                                      style: GoogleFonts.inter(
+                                        fontSize: 50,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                            ),
+                          ),
+                        ),
+                      ),
                       Text(
                         snapshot.data!['name'] as String,
                         style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       sizedboxwithheight(30),
-                      UserDataBox(title: 'Name', data: snapshot.data?['name'] ?? '', isName: true,ctx: context),
                       UserDataBox(
-                          title: 'Email', data: snapshot.data?['email'] ?? '', isEmail: true,ctx: context),
+                          title: 'Name',
+                          data: snapshot.data?['name'] ?? '',
+                          isName: true,
+                          ctx: context),
                       UserDataBox(
-                          title: 'Phone', data: snapshot.data?['phone'] ?? '', isPhone: true,ctx: context),
+                          title: 'Email',
+                          data: snapshot.data?['email'] ?? '',
+                          isEmail: true,
+                          ctx: context),
+                      UserDataBox(
+                          title: 'Phone',
+                          data: snapshot.data?['phone'] ?? '',
+                          isPhone: true,
+                          ctx: context),
                     ],
                   );
                 }),
