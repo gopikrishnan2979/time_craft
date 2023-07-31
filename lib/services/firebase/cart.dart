@@ -14,14 +14,13 @@ class CartService {
       {required String productId,
       required String varient,
       required int qty,
-      required int price}) async {
+      required int price,required String name, required String imageLink}) async {
     try {
-      log('$qty');
       FirebaseInstanceModel.cart
           .doc(FirebaseInstanceModel.uid)
           .collection('usercart')
           .doc('$productId$varient')
-          .set({'productId': productId, 'varient': varient, 'qty': qty, 'price': price},
+          .set({'name':name,'productId': productId, 'varient': varient, 'qty': qty, 'price': price,'imageLink':imageLink},
               SetOptions(merge: true)).then((value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -37,11 +36,37 @@ class CartService {
                     style: GoogleFonts.ptSerif(color: white, fontSize: 16),
                   )),
             ),
-            backgroundColor:const Color.fromARGB(122, 0, 0, 0)));
+            backgroundColor: const Color.fromARGB(122, 0, 0, 0)));
       });
       // log(obj.toString());
     } on FirebaseException catch (e) {
       log(e.message ?? '');
     }
+  }
+
+  updateCartItem(
+      {required String productId,
+      required int updateQty,
+      required String varient,
+      required int price}) {
+    try {
+      FirebaseInstanceModel.cart
+          .doc(FirebaseInstanceModel.uid)
+          .collection('usercart')
+          .doc(productId + varient)
+          .set({
+        'qty': updateQty,
+      }, SetOptions(merge: true));
+    } on FirebaseException catch (e) {
+      log(e.message.toString());
+    }
+  }
+
+  deleteCartItem({required String cartProductId}) async {
+    await FirebaseInstanceModel.cart
+        .doc(FirebaseInstanceModel.uid)
+        .collection('usercart')
+        .doc(cartProductId)
+        .delete();
   }
 }

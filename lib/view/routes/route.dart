@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/product/qty_controller.dart';
-import 'package:time_craft/controller/product/varient_controller.dart';
+import 'package:time_craft/controller/address_scrn_controller.dart';
+import 'package:time_craft/controller/checkout_address_controller.dart';
+import 'package:time_craft/controller/cart_controller.dart';
+import 'package:time_craft/controller/order_scrn_controller.dart';
+import 'package:time_craft/controller/payment_selector.dart';
+import 'package:time_craft/controller/product_qty_controller.dart';
+import 'package:time_craft/controller/product_varient_controller.dart';
 import 'package:time_craft/controller/search_controller.dart';
+import 'package:time_craft/model/address_scrn_arg.dart';
 import 'package:time_craft/model/checkout_model.dart';
-import 'package:time_craft/model/product_argument.dart';
+import 'package:time_craft/model/order_details_arg.dart';
+import 'package:time_craft/model/product_scrn_arg.dart';
+import 'package:time_craft/view/screens/address/address_scrn.dart';
 import 'package:time_craft/view/screens/cart/cart_screen.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
 import 'package:time_craft/view/screens/checkout/order_placed.dart';
 import 'package:time_craft/view/screens/home/home.dart';
+import 'package:time_craft/view/screens/order_details/order_details.dart';
 import 'package:time_craft/view/screens/orders/orders.dart';
 import 'package:time_craft/view/screens/product/product_details.dart';
 import 'package:time_craft/view/screens/profile/profile.dart';
@@ -34,9 +43,13 @@ class AppRoute {
       case Home.routename:
         return MaterialPageRoute(builder: (ctx) => const Home());
       case Cart.routename:
-        return MaterialPageRoute(builder: (ctx) => const Cart());
+        return MaterialPageRoute(
+            builder: (ctx) =>
+                ChangeNotifierProvider(create: (context) => CartController(), child: const Cart()));
       case MyOrders.routename:
-        return MaterialPageRoute(builder: (ctx) => const MyOrders());
+        return MaterialPageRoute(
+            builder: (ctx) => ChangeNotifierProvider(
+                create: (context) => OrderScrnController(), child: const MyOrders()));
       case MyProfile.routename:
         return MaterialPageRoute(builder: (ctx) => const MyProfile());
       case Settings.routename:
@@ -44,26 +57,49 @@ class AppRoute {
       case SearchScrn.routename:
         return MaterialPageRoute(
           builder: (ctx) => ChangeNotifierProvider(
-            create: (context) => SearchProvider(),
-            child:  const SearchScrn(),
-          ),
+              create: (context) => SearchProvider(), child: const SearchScrn()),
         );
       case ProductDetails.routename:
         return MaterialPageRoute(builder: (ctx) {
-          final arg = routeSettings.arguments as ProductArgument;
-
-          return MultiProvider(providers: [
-            ChangeNotifierProvider(create: (context) => QtyController()),
-            ChangeNotifierProvider(create: (context) => VarientController())
-          ], child: ProductDetails(data: arg));
+          final arg = routeSettings.arguments as ProductScrnArgument;
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => QtyController()),
+              ChangeNotifierProvider(create: (context) => VarientController())
+            ],
+            child: ProductDetails(arg: arg),
+          );
         });
       case CheckOutScrn.routename:
         return MaterialPageRoute(builder: (ctx) {
           final arg = routeSettings.arguments as CheckoutModel;
-          return CheckOutScrn(checkoutData: arg);
+          return MultiProvider(providers: [
+            ChangeNotifierProvider(create: (context) => PaymentSelector()),
+            ChangeNotifierProvider(create: (context) => CheckoutAddControl())
+          ], child: CheckOutScrn(checkoutData: arg));
         });
+      case AddressScrn.routename:
+        return MaterialPageRoute(
+          builder: (ctx) {
+            final arg = routeSettings.arguments as AddressScrnArg;
+
+            return MultiProvider(providers: [
+              ChangeNotifierProvider.value(value: arg.checkoutAddControl),
+              ChangeNotifierProvider(
+                create: (context) => AddressScrnController(),
+              )
+            ], child: const AddressScrn());
+          },
+        );
       case OrderPlaced.routename:
         return MaterialPageRoute(builder: (ctx) => const OrderPlaced());
+      case OrderDetails.routename:
+        return MaterialPageRoute(builder: (ctx) {
+          final arg = routeSettings.arguments as OrderDetailsArg;
+          return OrderDetails(
+            orderDetails: arg.order,orderId: arg.orderId,
+          );
+        });
       case ReviewScreen.routename:
         return MaterialPageRoute(builder: (ctx) => const ReviewScreen());
       default:
@@ -72,12 +108,7 @@ class AppRoute {
   }
 
   static Route _errorRoute() {
-    return MaterialPageRoute(builder: (ctx) {
-      return const Scaffold(
-        body: Center(
-          child: Text('Something Error'),
-        ),
-      );
-    });
+    return MaterialPageRoute(
+        builder: (ctx) => const Scaffold(body: Center(child: Text('Something Error'))));
   }
 }

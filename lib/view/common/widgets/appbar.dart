@@ -5,10 +5,12 @@ import 'package:time_craft/view/core/styles.dart';
 class AppbarCom extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? action;
+  final Function()? leadingFunction;
   const AppbarCom({
     super.key,
     required this.title,
     this.action,
+    this.leadingFunction
   });
 
   @override
@@ -22,7 +24,7 @@ class AppbarCom extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: IconButton(
-            onPressed: () {
+            onPressed:leadingFunction?? () {
               Navigator.of(context).pop();
             },
             icon: const Icon(

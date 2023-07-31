@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
-import 'package:time_craft/controller/wishlist_icon_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ItemCard extends StatelessWidget {
@@ -13,13 +12,15 @@ class ItemCard extends StatelessWidget {
       required this.discount,
       required this.price,
       required this.name,
-      required this.smallDiscription});
+      required this.smallDiscription,
+      this.isfromwishlist = false});
   final String imagepath;
   final int discount;
   final int price;
   final String name;
   final String smallDiscription;
   final String productId;
+  final bool isfromwishlist;
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +46,19 @@ class ItemCard extends StatelessWidget {
                   width: kwidth * 0.5, height: khieght * 0.2, fit: BoxFit.fitHeight, imagepath),
               Positioned(
                 right: 0,
-                child: Consumer<WishlistIconController>(builder: (context, iconcontroller, child) {
+                child: Consumer<WishlistController>(builder: (context, wishlistcontroller, child) {
                   return IconButton(
                     onPressed: () {
-                      if (iconcontroller.isInWishlist) {
-                        wishlistCon.remove(productId);
+                      if (wishlistcontroller.wishlist.contains(productId)) {
+                        wishlistCon.remove(productId: productId, context: context);
                       } else {
-                        wishlistCon.add(productId);
+                        wishlistCon.add(productId: productId, context: context);
                       }
-                      iconcontroller.toggle(context);
                     },
                     icon: Icon(
-                      iconcontroller.isInWishlist ? Icons.favorite : Icons.favorite_border,
+                      wishlistcontroller.wishlist.contains(productId)
+                          ? Icons.favorite
+                          : Icons.favorite_border,
                       size: 28,
                       color: black,
                     ),
@@ -76,7 +78,7 @@ class ItemCard extends StatelessWidget {
                       style: GoogleFonts.inter(
                         fontSize: 16,
                       )),
-                  Text(smallDiscription, style: inter),
+                  Text(smallDiscription, overflow: TextOverflow.ellipsis, style: inter),
                   Row(
                     children: [
                       Text(

@@ -1,6 +1,7 @@
+import 'package:time_craft/model/cart_model.dart';
+
 class CheckoutModel {
-  List<String> itemlist;
-  String selectedColor;
-  bool isfromProductDetails;
-  CheckoutModel({required this.itemlist, required this.selectedColor,this.isfromProductDetails=false});
+  final List<CartModel> itemlist;
+  final int totalPrice;
+  CheckoutModel({required this.itemlist,required this.totalPrice});
 }

@@ -1,12 +1,12 @@
 class Validation {
   validation(
       {required String? value,
-
       required bool isname,
       required bool isemail,
       required bool ispassword,
       required bool isphone,
-      required bool isconfirmpassword,String? password}) {
+      required bool isconfirmpassword,
+      String? password}) {
     if (value == null) {
       return 'Value cannot be empty';
     }
@@ -18,7 +18,7 @@ class Validation {
       return passwordvalidator(value.trim());
     } else if (isphone) {
       return phonevalidator(value.trim());
-    } else if (isconfirmpassword && password!=null) {
+    } else if (isconfirmpassword && password != null) {
       confirmPasswordValidation(password, value);
     }
   }
@@ -45,5 +45,16 @@ class Validation {
 
   String? confirmPasswordValidation(String password, String value) {
     return value == password && value != '' ? null : 'Password must be same as entered above';
+  }
+
+  String? addressValidation({required bool isOptional, required String? value}) {
+    
+    if (!isOptional) {
+      if (value == null || value.trim() == '') {
+        return 'required';
+      }
+      return null;
+    }
+    return null;
   }
 }

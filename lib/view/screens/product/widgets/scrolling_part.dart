@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:time_craft/model/product_argument.dart';
+import 'package:time_craft/model/product_scrn_arg.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/product/widgets/product_delivery_and_details.dart';
 import 'package:time_craft/view/screens/product/widgets/product_img_pageview.dart';
@@ -8,7 +8,7 @@ import 'package:time_craft/view/screens/product/widgets/product_varients_to_last
 
 class ProductScrollingPart extends StatelessWidget {
   const ProductScrollingPart({super.key, required this.data});
-  final ProductArgument data;
+  final ProductScrnArgument data;
 
   @override
   Widget build(BuildContext context) {

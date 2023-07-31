@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -25,12 +26,12 @@ class Auth {
       await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
         User? user = value.user;
         FirebaseInstanceModel.uid = user!.uid;
-        FirebaseInstanceModel.firestore.collection('users').doc(user.uid).set({
+        FirebaseInstanceModel.user.doc(user.uid).set({
           'name': username,
           'email': email,
           'phone': phone,
           'image': user.photoURL,
-        });
+        }, SetOptions(merge: true));
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(Home.routename);
         return value;
@@ -43,10 +44,7 @@ class Auth {
     }
   }
 
-  signInexistingWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  signInexistingWithEmailAndPassword({required String email, required String password}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
         FirebaseInstanceModel.uid = value.user!.uid;
@@ -75,12 +73,12 @@ class Auth {
       await _auth.signInWithCredential(credential).then((value) async {
         User? user = value.user;
         FirebaseInstanceModel.uid = user!.uid;
-        FirebaseInstanceModel.firestore.collection('users').doc(user.uid).set({
+        FirebaseInstanceModel.user.doc(user.uid).set({
           'name': user.displayName,
           'email': user.email,
           'phone': user.phoneNumber,
           'image': user.photoURL,
-        });
+        }, SetOptions(merge: true));
         await Provider.of<WishlistController>(context, listen: false).getwishlist();
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(Home.routename);

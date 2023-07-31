@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/product/qty_controller.dart';
-import 'package:time_craft/controller/product/varient_controller.dart';
+import 'package:time_craft/controller/product_qty_controller.dart';
+import 'package:time_craft/controller/product_varient_controller.dart';
+import 'package:time_craft/model/checkout_model.dart';
+import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/services/firebase/cart.dart';
 import 'package:time_craft/view/core/styles.dart';
+import 'package:time_craft/view/screens/checkout/checkout.dart';
 
-class AddToCartAlert extends StatelessWidget {
-  const AddToCartAlert(
-      {super.key,
-      required this.name,
-      required this.price,
-      required this.ctx,
-      required this.varientList,
-      required this.productId});
+class QtyAlert extends StatelessWidget {
+  const QtyAlert({super.key, required this.ctx, required this.isToCart, required this.data});
 
-  final String name;
-  final String productId;
-  final int price;
+  final bool isToCart;
   final BuildContext ctx;
-  final List varientList;
+  final ProductModel data;
   @override
   Widget build(BuildContext context) {
+    Provider.of<QtyController>(ctx, listen: false).qty = 1;
     return AlertDialog(
       title: Text(
         'ADD TO CART',
@@ -29,14 +25,14 @@ class AddToCartAlert extends StatelessWidget {
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: kwidth * 0.1, vertical: khieght * 0.01),
       content: ChangeNotifierProvider.value(
-        value: Provider.of<QtyController>(ctx),
+        value: Provider.of<QtyController>(ctx, listen: false),
         child: SizedBox(
           height: khieght * 0.2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(name, style: interbold),
+              Text(data.name, style: interbold),
               Row(
                 children: [
                   Text('QTY  :', style: inter),
@@ -61,15 +57,12 @@ class AddToCartAlert extends StatelessWidget {
                   Text('Cost :', style: inter),
                   Consumer<QtyController>(
                     builder: (context, value, child) {
-                      return Text(' ₹${price * value.qty}', style: inter);
+                      return Text(' ₹${data.price * value.qty}', style: inter);
                     },
                   )
                 ],
               ),
-              addtocartbutton(
-                context: context,
-                price: price,
-              ),
+              confirmButton(context: context, isToCart: isToCart),
             ],
           ),
         ),
@@ -78,7 +71,7 @@ class AddToCartAlert extends StatelessWidget {
   }
 
   //increment and decrement button
-  
+
   Widget incAndDecButton(
       {required IconData icon, required QtyController controller, bool isAdd = false}) {
     return InkWell(
@@ -109,24 +102,52 @@ class AddToCartAlert extends StatelessWidget {
 
   //adding to cart button
 
-  Widget addtocartbutton({required BuildContext context, required int price}) {
+  Widget confirmButton({required BuildContext context, required bool isToCart}) {
     return ElevatedButton(
       onPressed: () {
-        QtyController qtyController = Provider.of<QtyController>(ctx, listen: false);
-        VarientController vntController = Provider.of<VarientController>(ctx, listen: false);
-        CartService(context: ctx).addToCart(
-            productId: productId,
-            varient: varientList[vntController.selectedIdx],
-            qty: qtyController.qty,
-            price: price);
-        Navigator.of(context).pop();
+        if (isToCart) {
+          addToCart(context: context);
+        } else {
+          buyNow(context: context);
+        }
       },
       style: ButtonStyle(
         fixedSize: MaterialStatePropertyAll(Size(kwidth * 0.5, khieght * 0.02)),
         backgroundColor: const MaterialStatePropertyAll(black),
         shape: const MaterialStatePropertyAll(ContinuousRectangleBorder()),
       ),
-      child: Text('Add to cart', style: interwhitebold),
+      child: Text(isToCart ? 'Add to cart' : 'Buy Now', style: interwhitebold),
+    );
+  }
+
+  addToCart({required BuildContext context}) {
+    QtyController qtyController = Provider.of<QtyController>(ctx, listen: false);
+    VarientController vntController = Provider.of<VarientController>(ctx, listen: false);
+    int varientIndex = vntController.selectedIdx;
+    String varient = data.varients[varientIndex];
+    int qty = qtyController.qty;
+    CartService(context: ctx).addToCart(
+        productId: data.id,
+        varient: varient,
+        qty: qty,
+        price: data.price,
+        name: data.name,
+        imageLink: data.imagelist[0]);
+    Navigator.of(context).pop();
+  }
+
+  buyNow({required BuildContext context}) {
+    QtyController qtyController = Provider.of<QtyController>(ctx, listen: false);
+    VarientController vntController = Provider.of<VarientController>(ctx, listen: false);
+    int qty = qtyController.qty;
+    int varientIndex = vntController.selectedIdx;
+    Navigator.of(context).pop();
+    Navigator.of(ctx).pushNamed(
+      CheckOutScrn.routename,
+      arguments: CheckoutModel(
+        itemlist: [data.toCartModelConverter(varientIndex: varientIndex, quantity: qty)],
+        totalPrice: (data.price * qtyController.qty),
+      ),
     );
   }
 }

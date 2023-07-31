@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:time_craft/controller/wishlist_controller.dart';
-import 'package:time_craft/controller/wishlist_icon_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
-import 'package:time_craft/model/product_argument.dart';
+import 'package:time_craft/model/product_scrn_arg.dart';
 import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';
@@ -16,7 +13,6 @@ class MensScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WishlistController wishlistCon = Provider.of<WishlistController>(context, listen: false);
     return StreamBuilder(
         stream: FirebaseInstanceModel.products.snapshots(),
         builder: (context, snapshot) {
@@ -37,31 +33,21 @@ class MensScreen extends StatelessWidget {
                 mainAxisSpacing: 5),
             padding: const EdgeInsets.all(5),
             itemBuilder: (context, index) {
-              late WishlistIconController iconController;
-              return ChangeNotifierProvider(
-                create: (context) {
-                  iconController = WishlistIconController(
-                      isInWishlist: wishlistCon.wishlist.contains(datalist[index].id),
-                      productid: datalist[index].id);
-                  return iconController;
+              return InkWell(
+                onTap: () {
+                  var data = datalist[index];
+                  Navigator.of(context).pushNamed(ProductDetails.routename,
+                      arguments: ProductScrnArgument(
+                        data: productmodelMaker(data),
+                      ));
                 },
-                child: InkWell(
-                  onTap: () {
-                    var data = datalist[index];
-                    Navigator.of(context).pushNamed(ProductDetails.routename,
-                        arguments: ProductArgument(
-                            data: productmodelMaker(data),
-                            id: datalist[index].id,
-                            iconController: iconController));
-                  },
-                  child: ItemCard(
-                    productId: datalist[index].id,
-                    name: datalist[index]['name'],
-                    imagepath: datalist[index]['imagelist'][0],
-                    smallDiscription: datalist[index]['smalldiscription'],
-                    discount: datalist[index]['discount'],
-                    price: datalist[index]['price'],
-                  ),
+                child: ItemCard(
+                  productId: datalist[index].id,
+                  name: datalist[index]['name'],
+                  imagepath: datalist[index]['imagelist'][0],
+                  smallDiscription: datalist[index]['smalldiscription'],
+                  discount: datalist[index]['discount'],
+                  price: datalist[index]['price'],
                 ),
               );
             },

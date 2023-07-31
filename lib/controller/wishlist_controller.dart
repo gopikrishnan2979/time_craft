@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
+import 'package:time_craft/services/firebase/wishlist.dart';
 
 class WishlistController extends ChangeNotifier {
   List<String> wishlist = [];
@@ -12,13 +13,15 @@ class WishlistController extends ChangeNotifier {
         .then((value) => value.docs.map((element) => element.id).toList());
   }
 
-  add(String productId) {
+  add({required String productId, required BuildContext context}) {
     wishlist.add(productId);
     notifyListeners();
+    WishlistService(context: context).addToWishlist(productId);
   }
 
-  remove(String productId) {
+  remove({required String productId, required BuildContext context}) {
     wishlist.remove(productId);
     notifyListeners();
+    WishlistService(context: context).removeFromWishlist(productId);
   }
 }

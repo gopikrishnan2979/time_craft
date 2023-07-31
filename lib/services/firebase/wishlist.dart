@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 
-class Wishlist {
-  Wishlist({required this.context});
+class WishlistService {
+  WishlistService({required this.context});
   final BuildContext context;
   Future<void> addToWishlist(String productId) async {
     try {

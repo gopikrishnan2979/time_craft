@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/search_controller.dart';
-import 'package:time_craft/controller/visibility_controller.dart';
+import 'package:time_craft/controller/search_visibility_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';
@@ -17,7 +17,7 @@ class SearchBoxWithFilter extends StatelessWidget {
     searchController.text = controller.text;
     return Consumer<VisibilityController>(builder: (context, value, child) {
       return Container(
-        height: (khieght * 0.14) + value.visibilityHeight,
+        height: (khieght * 0.16) + value.visibilityHeight,
         decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.black26))),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),

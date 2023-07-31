@@ -19,11 +19,12 @@ class PaymentPart extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              sizedboxwithheight(khieght * 0.01),
               Text(
                 'Select your payment method',
                 style: inter,
               ),
-              sizedboxwithheight(khieght * 0.02),
+              sizedboxwithheight(khieght * 0.01),
               InkWell(
                 borderRadius: BorderRadius.circular(kwidth * 0.03),
                 onTap: () {
@@ -48,8 +49,7 @@ class PaymentPart extends StatelessWidget {
                   isactiverazorpay: !selector.israzorpay,
                   child: Text(
                     'CASH ON DELIVERY',
-                    style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w500, fontSize: 18),
+                    style: GoogleFonts.montserrat(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ),
               ),

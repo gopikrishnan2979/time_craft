@@ -2,17 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/search_controller.dart';
+import 'package:time_craft/model/product_scrn_arg.dart';
+import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/item_card.dart';
+import 'package:time_craft/view/screens/product/product_details.dart';
 
 class SearchFoundGrid extends StatelessWidget {
   SearchFoundGrid({super.key});
   final CollectionReference allproduct = FirebaseFirestore.instance.collection('product');
   @override
   Widget build(BuildContext context) {
-    SearchProvider value = Provider.of<SearchProvider>(context, listen: false);
+    SearchProvider searchValue = Provider.of<SearchProvider>(context, listen: false);
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -21,16 +24,23 @@ class SearchFoundGrid extends StatelessWidget {
           mainAxisSpacing: 5),
       padding: const EdgeInsets.all(5),
       itemBuilder: (context, index) {
-        return ItemCard(
-          productId: value.searchlist[index].id,
-          name: value.searchlist[index]['name'],
-          imagepath: value.searchlist[index]['imagelist'][0],
-          smallDiscription: value.searchlist[index]['smalldiscription'],
-          discount: value.searchlist[index]['discount'],
-          price: value.searchlist[index]['price'],
+        var data = searchValue.searchlist[index];
+        return InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(ProductDetails.routename,
+                arguments: ProductScrnArgument(data: productmodelMaker(data)));
+          },
+          child: ItemCard(
+            productId: data.id,
+            name: data['name'],
+            imagepath: data['imagelist'][0],
+            smallDiscription: data['smalldiscription'],
+            discount: data['discount'],
+            price: data['price'],
+          ),
         );
       },
-      itemCount: value.searchlist.length,
+      itemCount: searchValue.searchlist.length,
     );
   }
 }

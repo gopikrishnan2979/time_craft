@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
-import 'package:time_craft/controller/wishlist_icon_controller.dart';
-import 'package:time_craft/model/checkout_model.dart';
-import 'package:time_craft/model/product_argument.dart';
+import 'package:time_craft/model/product_scrn_arg.dart';
 import 'package:time_craft/view/core/styles.dart';
-import 'package:time_craft/view/screens/checkout/checkout.dart';
-import 'package:time_craft/view/screens/product/widgets/add_to_cart_alert.dart';
+import 'package:time_craft/view/screens/product/widgets/qty_alert.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
 import 'package:time_craft/view/screens/product/widgets/scrolling_part.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key, required this.data});
-  final ProductArgument data;
+  const ProductDetails({super.key, required this.arg});
+  final ProductScrnArgument arg;
 
   static const routename = '/Product';
   @override
@@ -26,33 +23,30 @@ class ProductDetails extends StatelessWidget {
           action: [
             Padding(
               padding: EdgeInsets.only(right: kwidth * 0.03),
-              child: ChangeNotifierProvider.value(
-                value:data.iconController,
-                child:
-                    Consumer<WishlistIconController>(builder: (context, iconcontroller, child) {
-                  return IconButton(
-                    onPressed: () {
-                      if (iconcontroller.isInWishlist) {
-                        wishlistCon.remove(data.id);
-                      } else {
-                        wishlistCon.add(data.id);
-                      }
-                      iconcontroller.toggle(context);
-                    },
-                    icon: Icon(
-                      iconcontroller.isInWishlist ? Icons.favorite : Icons.favorite_border,
-                      size: 28,
-                      color: black,
-                    ),
-                  );
-                }),
-              ),
+              child: Consumer<WishlistController>(builder: (context, wishlistController, child) {
+                return IconButton(
+                  onPressed: () {
+                    if (wishlistController.wishlist.contains(arg.data.id)) {
+                      wishlistCon.remove(productId: arg.data.id, context: context);
+                    } else {
+                      wishlistCon.add(productId: arg.data.id, context: context);
+                    }
+                  },
+                  icon: Icon(
+                    wishlistController.wishlist.contains(arg.data.id)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    size: 28,
+                    color: black,
+                  ),
+                );
+              }),
             )
           ],
         ),
         body: Column(
           children: [
-            ProductScrollingPart(data: data),
+            ProductScrollingPart(data: arg),
             SizedBox(
               height: khieght * 0.08,
               child: Row(
@@ -60,30 +54,14 @@ class ProductDetails extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      String varient = '';
-                      Navigator.of(context).pushNamed(
-                        CheckOutScrn.routename,
-                        arguments: CheckoutModel(
-                          itemlist: [data.id],
-                          selectedColor: varient,
-                          isfromProductDetails: true,
-                        ),
-                      );
+                      qtyAlert(context: context, isToCart: false);
                     },
                     style: _buttonstyle(),
                     child: _buttonchild('BUY NOW'),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (c) => AddToCartAlert(
-                            name: data.data.name,
-                            price: data.data.price,
-                            varientList: data.data.varients,
-                            productId: data.id,
-                            ctx: context),
-                      );
+                      qtyAlert(context: context, isToCart: true);
                     },
                     style: _buttonstyle(),
                     child: _buttonchild('ADD TO CART'),
@@ -94,6 +72,13 @@ class ProductDetails extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  qtyAlert({required BuildContext context, required bool isToCart}) {
+    showDialog(
+      context: context,
+      builder: (_) => QtyAlert(data: arg.data, isToCart: isToCart, ctx: context),
     );
   }
 

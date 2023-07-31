@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
-import 'package:time_craft/controller/wishlist_icon_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
-import 'package:time_craft/model/product_argument.dart';
+import 'package:time_craft/model/product_scrn_arg.dart';
 import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';
@@ -44,23 +43,15 @@ class AllScreens extends StatelessWidget {
                   right: 5,
                 ),
                 itemBuilder: (context, index) {
-                  WishlistController wishlistCon =
-                      Provider.of<WishlistController>(context, listen: false);
                   var data = snapshot.data!.docs[index];
-                  late WishlistIconController iconController;
-                  return ChangeNotifierProvider(
-                    create: (context) {
-                      iconController = WishlistIconController(
-                          isInWishlist: wishlistCon.wishlist.contains(data.id), productid: data.id);
-                      return iconController;
-                    },
-                    child: InkWell(
+
+                  return Consumer<WishlistController>(builder: (context, value, child) {
+                    return InkWell(
                       onTap: () {
                         Navigator.of(context).pushNamed(ProductDetails.routename,
-                            arguments: ProductArgument(
-                                iconController: iconController,
-                                data: productmodelMaker(data),
-                                id: snapshot.data!.docs[index].id));
+                            arguments: ProductScrnArgument(
+                              data: productmodelMaker(data),
+                            ));
                       },
                       child: ItemCard(
                         productId: data.id,
@@ -70,8 +61,8 @@ class AllScreens extends StatelessWidget {
                         discount: data['discount'],
                         price: data['price'],
                       ),
-                    ),
-                  );
+                    );
+                  });
                 },
                 itemCount: snapshot.data!.docs.length,
               );

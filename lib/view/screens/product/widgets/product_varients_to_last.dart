@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/product/varient_controller.dart';
+import 'package:time_craft/controller/product_varient_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/reviews/review_screen.dart';
 

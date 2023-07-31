@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/cart_controller.dart';
+import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
 
@@ -14,7 +17,15 @@ class CartCheckOut extends StatelessWidget {
       child: Center(
           child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(CheckOutScrn.routename);
+          CartController cartController = Provider.of<CartController>(context, listen: false);
+          if (cartController.cartList.isNotEmpty) {
+            var itemlist = cartController.cartList;
+            var totalPrice = cartController.totalCartPrice;
+            Navigator.of(context).pushNamed(
+              CheckOutScrn.routename,
+              arguments: CheckoutModel(itemlist: itemlist, totalPrice: totalPrice),
+            );
+          }
         },
         style: const ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(white),

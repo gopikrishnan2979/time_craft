@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/search_controller.dart';
-import 'package:time_craft/controller/visibility_controller.dart';
+import 'package:time_craft/controller/search_visibility_controller.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/search/widgets/search_box_filter.dart';
