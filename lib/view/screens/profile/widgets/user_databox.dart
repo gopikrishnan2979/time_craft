@@ -58,7 +58,7 @@ class UserDataBox extends StatelessWidget {
                               ),
                             );
                           },
-                          icon: Icon(Icons.edit))
+                          icon: const Icon(Icons.edit))
                     ],
                   ),
           )
