@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/model/order_model.dart';
@@ -16,7 +15,6 @@ class OrderScrnController extends ChangeNotifier {
         });
       }
     });
-    log(cartlist.toString());
     notifyListeners();
   }
 }

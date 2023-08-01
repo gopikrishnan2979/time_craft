@@ -26,7 +26,7 @@ class SearchScrn extends StatelessWidget {
                   create: (context) => VisibilityController(), child: SearchBoxWithFilter()),
               Consumer<SearchProvider>(builder: (context, value, child) {
                 if (value.searchlist.isEmpty) {
-                  return SearchNotFound();
+                  return const SearchNotFound();
                 } else {
                   return SearchFoundGrid();
                 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
-import 'package:time_craft/model/product_scrn_arg.dart';
+import 'package:time_craft/model/arg_models/product_scrn_arg.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/product/widgets/qty_alert.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';

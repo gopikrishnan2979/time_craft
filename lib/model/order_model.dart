@@ -24,8 +24,16 @@ class OrderModel {
     required this.totalPrice,
     required this.orderStatus,
     required this.orderPlacedDate,
+  }) {
+    _orderStatusSetter();
+  }
 
-  });
+  _orderStatusSetter() {
+    orderPlacedDate ??= 'Not setted';
+    shippingDate ??= 'Not setted';
+    outForDeliveryDate ??= 'Not setted';
+    deliveryDate ??= 'Not setted';
+  }
 
   OrderModel.fromMap(var data) {
     totalPrice = data['totalPrice'];

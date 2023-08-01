@@ -17,7 +17,7 @@ class AddressScrn extends StatelessWidget {
     Provider.of<AddressScrnController>(context, listen: false).getAddressList();
     return SafeArea(
       child: Scaffold(
-        appBar: AppbarCom(
+        appBar: const AppbarCom(
           title: 'Address',
         ),
         body: Column(
@@ -118,7 +118,7 @@ class AddressScrn extends StatelessWidget {
         Text('${address.city}, ${address.district}'),
         Text('${address.state},'),
         Text('Pin: ${address.pincode}'),
-        address.landmark != 'no landmark' ? Text('landmark: ${address.landmark}') : SizedBox(),
+        address.landmark != 'no landmark' ? Text('landmark: ${address.landmark}') : const SizedBox(),
       ],
     );
   }

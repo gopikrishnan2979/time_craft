@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/order_scrn_controller.dart';
-import 'package:time_craft/model/order_details_arg.dart';
+import 'package:time_craft/model/arg_models/order_details_arg.dart';
 import 'package:time_craft/model/order_model.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
 import 'package:time_craft/view/screens/order_details/order_details.dart';

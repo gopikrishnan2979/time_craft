@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:time_craft/model/product_scrn_arg.dart';
+import 'package:time_craft/model/arg_models/product_scrn_arg.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/product/widgets/product_delivery_and_details.dart';
 import 'package:time_craft/view/screens/product/widgets/product_img_pageview.dart';

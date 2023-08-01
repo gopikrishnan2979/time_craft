@@ -79,7 +79,7 @@ class RazorPayService {
   //wallet payment selected
   void _handleExternalWallet(ExternalWalletResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(
-        _snackBar(message: 'Wallet selected', color: Color.fromARGB(149, 107, 255, 112)));
+        _snackBar(message: 'Wallet selected', color: const Color.fromARGB(149, 107, 255, 112)));
   }
 
 // snackbar showing success

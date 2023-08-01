@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
-import 'package:time_craft/model/product_scrn_arg.dart';
+import 'package:time_craft/model/arg_models/product_scrn_arg.dart';
 import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';

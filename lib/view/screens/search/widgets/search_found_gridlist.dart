@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/search_controller.dart';
-import 'package:time_craft/model/product_scrn_arg.dart';
+import 'package:time_craft/model/arg_models/product_scrn_arg.dart';
 import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/item_card.dart';

@@ -74,20 +74,12 @@ class ItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(name,
-                      style: GoogleFonts.inter(
-                        fontSize: 16,
-                      )),
+                  Text(name, style: GoogleFonts.inter(fontSize: 16)),
                   Text(smallDiscription, overflow: TextOverflow.ellipsis, style: inter),
                   Row(
                     children: [
-                      Text(
-                        '$discount% OFF',
-                        style: GoogleFonts.inter(color: Colors.green),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
+                      Text('$discount% OFF', style: GoogleFonts.inter(color: Colors.green)),
+                      const SizedBox(width: 30),
                       Text('₹$price')
                     ],
                   ),
