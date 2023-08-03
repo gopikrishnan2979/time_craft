@@ -21,7 +21,6 @@ import 'package:time_craft/view/screens/order_details/order_details.dart';
 import 'package:time_craft/view/screens/orders/orders.dart';
 import 'package:time_craft/view/screens/product/product_details.dart';
 import 'package:time_craft/view/screens/profile/profile.dart';
-import 'package:time_craft/view/screens/reviews/review_screen.dart';
 import 'package:time_craft/view/screens/search/search.dart';
 import 'package:time_craft/view/screens/settings/settings.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
@@ -100,8 +99,6 @@ class AppRoute {
             orderDetails: arg.order,orderId: arg.orderId,
           );
         });
-      case ReviewScreen.routename:
-        return MaterialPageRoute(builder: (ctx) => const ReviewScreen());
       default:
         return _errorRoute();
     }

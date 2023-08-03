@@ -18,6 +18,7 @@ class CartTile extends StatelessWidget {
             child: Image.network(
               cartController.cartList[index].imageLink!,
               fit: BoxFit.fitHeight,
+              errorBuilder: (context, error, stackTrace) => errorShower(),
             )),
         SizedBox(
           width: kwidth * 0.06,

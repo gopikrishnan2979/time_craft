@@ -12,10 +12,8 @@ class ProductPageview extends StatelessWidget {
       child: PageView.builder(
         itemBuilder: (context, index) => SizedBox(
           width: double.infinity,
-          child: Image.network(
-            imagelist[index],
-            fit: BoxFit.fitHeight,
-          ),
+          child: Image.network(imagelist[index],
+              fit: BoxFit.fitHeight, errorBuilder: (context, error, stackTrace) => errorShower()),
         ),
         itemCount: imagelist.length,
       ),

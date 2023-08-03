@@ -104,35 +104,40 @@ class OrderDetails extends StatelessWidget {
     ));
   }
 
-  List<TrackerData> tracker(
-      {required String status,
-      required String? orderdate,
-      required String? shippedDate,
-      required String? outForDeliveryDate,
-      required String? deliveryDate}) {
-    const List<String> statusList = [
-      'Order Placed',
-      'Order Shipped',
-      'Out For Delivery',
-      'Order Delivered',
-    ];
-
-    List<String?> dates = [orderdate, shippedDate, outForDeliveryDate, deliveryDate];
-
-    int noOfStage = 0;
-    for (int i = 0; i < 4; i++) {
-      if (status == statusList[i]) {
-        noOfStage = i;
-      }
-    }
+  List<TrackerData> tracker({
+    required String status,
+    required String? orderdate,
+    required String? shippedDate,
+    required String? outForDeliveryDate,
+    required String? deliveryDate,
+  }) {
     List<TrackerData> trackerdata = [];
-    for (int i = 0; i <= noOfStage; i++) {
-      String date = dates[i]!.substring(0, 10);
-      String datetTime = dates[i]!.substring(0, 16);
-      trackerdata.add(TrackerData(title: statusList[i], date: date, tracker_details: [
-        TrackerDetails(title: 'Your ${statusList[i]} on', datetime: datetTime)
-      ]));
+
+    trackerdata.add(trackerMaker(
+        title: 'Order Placed', date: orderdate!, displaytext: 'Your order is placed on'));
+    if (shippedDate != 'Not setted') {
+      trackerdata.add(trackerMaker(
+          title: 'Order Shipped', date: shippedDate!, displaytext: 'Your order is shipped on'));
+    }
+    if (outForDeliveryDate != 'Not setted') {
+      trackerdata.add(trackerMaker(
+          title: 'Out For Delivery',
+          date: outForDeliveryDate!,
+          displaytext: 'Your order is out for delivery on'));
+    }
+    if (deliveryDate != 'Not setted') {
+      trackerdata.add(trackerMaker(
+          title: 'Order Delivered',
+          date: deliveryDate!,
+          displaytext: 'Your order is succussfully delivered'));
     }
     return trackerdata;
+  }
+
+  trackerMaker({required String title, required String date, required displaytext}) {
+    return TrackerData(
+        title: title,
+        date: date.substring(0, 10),
+        tracker_details: [TrackerDetails(title: displaytext, datetime: date.substring(0, 16))]);
   }
 }

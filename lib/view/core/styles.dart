@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:time_craft/view/common/widgets/loading.dart';
 
 const Color white = Colors.white;
 const Color black = Colors.black;
@@ -17,6 +18,13 @@ String imgpath =
 sizedboxwithheight(double? height) {
   return SizedBox(
     height: height,
+  );
+}
+
+errorShower() {
+  return const ColoredBox(
+    color: Colors.grey,
+    child: Loading(),
   );
 }
 

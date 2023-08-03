@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/product_varient_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
-import 'package:time_craft/view/screens/reviews/review_screen.dart';
 
 class ProductVarientsToLast extends StatelessWidget {
   const ProductVarientsToLast({
@@ -54,43 +53,8 @@ class ProductVarientsToLast extends StatelessWidget {
             );
           },
         ),
-        sizedboxwithheight(khieght * 0.01),
-        Text(
-          'Review',
-          style: inter,
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) =>
-              _detailtext('Username\nI Like it very much, Amazing product', true),
-          itemCount: 3,
-        ),
         sizedboxwithheight(khieght * 0.02),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(ReviewScreen.routename);
-          },
-          style: const ButtonStyle(
-              elevation: MaterialStatePropertyAll(3),
-              backgroundColor: MaterialStatePropertyAll(white),
-              foregroundColor: MaterialStatePropertyAll(black),
-              surfaceTintColor: MaterialStatePropertyAll(white),
-              shape: MaterialStatePropertyAll(ContinuousRectangleBorder())),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'All reviews',
-                style: inter,
-              ),
-              const Icon(
-                Icons.navigate_next_outlined,
-                size: 30,
-              )
-            ],
-          ),
-        )
+        
       ],
     );
   }

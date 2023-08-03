@@ -35,6 +35,7 @@ class CarouselHome extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: kwidth,
                 height: khieght,
+                errorBuilder: (context, error, stackTrace) =>errorShower(),
               ),
             ))
         .toList();
