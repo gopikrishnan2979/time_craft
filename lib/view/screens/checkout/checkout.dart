@@ -7,6 +7,7 @@ import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/model/order_model.dart';
 import 'package:time_craft/services/firebase/order.dart';
 import 'package:time_craft/services/razorpay/razorpay_service.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/widgets/address_part.dart';
 import 'package:time_craft/view/screens/checkout/widgets/payment_part.dart';
@@ -48,45 +49,44 @@ class CheckOutScrn extends StatelessWidget {
 
   Widget placeOrderButton({required BuildContext context}) {
     return ElevatedButton(
-        onPressed: () {
-          orderPlacer(context);
-        },
-        style: ButtonStyle(
-            fixedSize: MaterialStatePropertyAll(Size(kwidth * 0.6, khieght * 0.01)),
-            backgroundColor: const MaterialStatePropertyAll(black),
-            foregroundColor: const MaterialStatePropertyAll(white),
-            shape: const MaterialStatePropertyAll(ContinuousRectangleBorder())),
-        child: const Text(
-          'PLACE ORDER',
-        ));
+      onPressed: () {
+        orderPlacer(context);
+      },
+      style: ButtonStyle(
+          fixedSize: MaterialStatePropertyAll(Size(kwidth * 0.6, khieght * 0.01)),
+          backgroundColor: const MaterialStatePropertyAll(black),
+          foregroundColor: const MaterialStatePropertyAll(white),
+          shape: const MaterialStatePropertyAll(ContinuousRectangleBorder())),
+      child: const Text('PLACE ORDER'),
+    );
   }
 
+  orderPlacer(BuildContext context) {
+    PaymentSelector payController = Provider.of<PaymentSelector>(context, listen: false);
+    CheckoutAddControl addControl = Provider.of<CheckoutAddControl>(context, listen: false);
 
-  orderPlacer(BuildContext context){
-     PaymentSelector payController = Provider.of<PaymentSelector>(context, listen: false);
-          CheckoutAddControl addControl = Provider.of<CheckoutAddControl>(context, listen: false);
-
-          if (addControl.address != null) {
-            if (payController.israzorpay) {
-              razorPayService.pay(
-                  totalPrice: checkoutData.totalPrice,
-                  address: addControl.address!,
-                  cartList: checkoutData.itemlist);
-            } else {
-              String date=DateTime.now().toString();
-              OrderModel orderData = OrderModel(
-                  cartlist: checkoutData.itemlist,
-                  paymentId: 'COD',
-                  discription: '${FirebaseInstanceModel.uid}Order',
-                  address: addControl.address!,
-                  israzorpay: false,
-                  userid: FirebaseInstanceModel.uid,
-                  totalPrice: checkoutData.totalPrice,
-                  orderPlacedDate: date,
-                  orderStatus: 'Order Placed');
-              OrderServices(orderData, context: context).addOrder();
-            }
-          }
+    if (addControl.address != null) {
+      if (payController.israzorpay) {
+        razorPayService.pay(
+            totalPrice: checkoutData.totalPrice,
+            address: addControl.address!,
+            cartList: checkoutData.itemlist);
+      } else {
+        String date = DateTime.now().toString();
+        OrderModel orderData = OrderModel(
+            cartlist: checkoutData.itemlist,
+            paymentId: 'COD',
+            discription: '${FirebaseInstanceModel.uid}Order',
+            address: addControl.address!,
+            israzorpay: false,
+            userid: FirebaseInstanceModel.uid,
+            totalPrice: checkoutData.totalPrice,
+            orderPlacedDate: date,
+            orderStatus: 'Order Placed');
+        OrderServices(orderData, context: context).addOrder();
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(text: 'Address not selected'));
+    }
   }
 }
-

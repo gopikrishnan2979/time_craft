@@ -1,12 +1,11 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:time_craft/model/address_model.dart';
 import 'package:time_craft/model/cart_model.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/model/order_model.dart';
 import 'package:time_craft/services/firebase/order.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:uuid/uuid.dart';
 
@@ -66,58 +65,20 @@ class RazorPayService {
   //Payment is success
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(
-        _snackBar(message: 'Payment Successful', color: const Color.fromARGB(149, 107, 255, 112)));
+        snackBarDesign(text: 'Payment Successful',color: addingColor));
 
     OrderServices(_order, context: context).addOrder();
   }
 
   //Payment failed to proceed;
   void _handlePaymentError(PaymentFailureResponse response) {
-    alertshower('Payment Failed', context);
+    ScaffoldMessenger.of(context).showSnackBar(
+        snackBarDesign(text: 'Payment failed',color: removingColor));
   }
 
   //wallet payment selected
   void _handleExternalWallet(ExternalWalletResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(
-        _snackBar(message: 'Wallet selected', color: const Color.fromARGB(149, 107, 255, 112)));
-  }
-
-// snackbar showing success
-  SnackBar _snackBar({required String message, required Color color}) {
-    return SnackBar(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(milliseconds: 800),
-        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-        elevation: 15,
-        content: Center(
-          child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-              child: Text(
-                message,
-                style: GoogleFonts.ptSerif(color: white, fontSize: 16),
-              )),
-        ),
-        backgroundColor: color);
-  }
-
-//alert showing error
-  alertshower(String message, BuildContext context) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Alert'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
+        snackBarDesign(text: 'Wallet selected',color: addingColor));
   }
 }

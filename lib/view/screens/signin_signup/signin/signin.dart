@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:time_craft/view/common/widgets/network_error_widget.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/signin_signup/signup/signup.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/widgets/signin_buttons.dart';
@@ -26,7 +27,7 @@ class _SignInPageState extends State<SignInPage> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(khieght * 0.0108),
+            padding: EdgeInsets.symmetric(horizontal: khieght * 0.01),
             child: SizedBox(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,41 +36,36 @@ class _SignInPageState extends State<SignInPage> {
                     ' Login',
                     style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
-                  sizedboxwithheight(khieght * 0.0108),
+                  NetworkErrorWidget(replacement: sizedboxwithheight(khieght * 0.05)),
                   Center(
-                    child: SizedBox(
-                      height: khieght * 0.303,
-                      child: Lottie.asset('assets/lotties/SignIn.json'),
+                      child: SizedBox(
+                    height: khieght * 0.28,
+                    child: Lottie.asset('assets/lotties/SignIn.json', fit: BoxFit.fitHeight),
+                  )),
+                  Form(
+                    key: _formkey,
+                    child: TextfieldSignin(
+                      emailcontroller: _emailcontroller,
+                      passwordcontroller: _passwordcontroller,
                     ),
                   ),
-                  Form(
-                      key: _formkey,
-                      child: TextfieldSignin(
-                        emailcontroller: _emailcontroller,
-                        passwordcontroller: _passwordcontroller,
-                      )),
                   SignInButton(
-                      formkey: _formkey,
-                      emailcontroller: _emailcontroller,
-                      passwordcontroller: _passwordcontroller),
+                    formkey: _formkey,
+                    emailcontroller: _emailcontroller,
+                    passwordcontroller: _passwordcontroller,
+                  ),
                   SizedBox(
-                    height: khieght * 0.09,
+                    height: khieght * 0.07,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Don't have account?",
-                          style: interbold,
-                        ),
+                        Text("Don't have account?", style: interbold),
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pushReplacementNamed(SignUpPage.routename);
                           },
-                          child: Text(
-                            "Create account",
-                            style: interbluebold,
-                          ),
+                          child: Text("Create account", style: interbluebold),
                         )
                       ],
                     ),

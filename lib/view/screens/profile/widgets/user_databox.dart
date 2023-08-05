@@ -29,10 +29,7 @@ class UserDataBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
-            title,
-            style: GoogleFonts.inter(fontWeight: FontWeight.w500),
-          ),
+          Text(title, style: GoogleFonts.inter(fontWeight: FontWeight.w500)),
           Container(
             decoration: BoxDecoration(border: Border.all()),
             width: kwidth * 0.8,
@@ -45,20 +42,21 @@ class UserDataBox extends StatelessWidget {
                     children: [
                       Text(data, style: inter),
                       IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => ChangeNotifierProvider(
-                                create: (context) => UserEditingController(initialData: data),
-                                child: UserDataEditor(
-                                  isname: isName,
-                                  initialText: data,
-                                  ctx: ctx,
-                                ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => ChangeNotifierProvider(
+                              create: (context) => UserEditingController(initialData: data),
+                              child: UserDataEditor(
+                                isname: isName,
+                                initialText: data,
+                                ctx: ctx,
                               ),
-                            );
-                          },
-                          icon: const Icon(Icons.edit))
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.edit),
+                      )
                     ],
                   ),
           )

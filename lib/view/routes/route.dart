@@ -32,61 +32,87 @@ class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case SplashScreen.routename:
-        return MaterialPageRoute(builder: (ctx) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (ctx) => const SplashScreen(),
+        );
       case SignInPage.routename:
-        return MaterialPageRoute(builder: (ctx) => const SignInPage());
+        return MaterialPageRoute(
+          builder: (ctx) => const SignInPage(),
+        );
       case SignUpPage.routename:
-        return MaterialPageRoute(builder: (ctx) => const SignUpPage());
+        return MaterialPageRoute(
+          builder: (ctx) => const SignUpPage(),
+        );
       case WishlistScreen.routename:
-        return MaterialPageRoute(builder: (ctx) => const WishlistScreen());
+        return MaterialPageRoute(
+          builder: (ctx) => const WishlistScreen(),
+        );
       case Home.routename:
-        return MaterialPageRoute(builder: (ctx) => const Home());
+        return MaterialPageRoute(
+          builder: (ctx) => const Home(),
+        );
       case Cart.routename:
         return MaterialPageRoute(
-            builder: (ctx) =>
-                ChangeNotifierProvider(create: (context) => CartController(), child: const Cart()));
+          builder: (ctx) => ChangeNotifierProvider(
+            create: (context) => CartController(),
+            child: const Cart(),
+          ),
+        );
       case MyOrders.routename:
         return MaterialPageRoute(
-            builder: (ctx) => ChangeNotifierProvider(
-                create: (context) => OrderScrnController(), child: const MyOrders()));
+          builder: (ctx) => ChangeNotifierProvider(
+            create: (context) => OrderScrnController(),
+            child: const MyOrders(),
+          ),
+        );
       case MyProfile.routename:
-        return MaterialPageRoute(builder: (ctx) => const MyProfile());
+        return MaterialPageRoute(
+          builder: (ctx) => const MyProfile(),
+        );
       case Settings.routename:
-        return MaterialPageRoute(builder: (ctx) => const Settings());
+        return MaterialPageRoute(
+          builder: (ctx) => const Settings(),
+        );
       case SearchScrn.routename:
         return MaterialPageRoute(
           builder: (ctx) => ChangeNotifierProvider(
-              create: (context) => SearchProvider(), child: const SearchScrn()),
+            create: (context) => SearchProvider(),
+            child: const SearchScrn(),
+          ),
         );
       case ProductDetails.routename:
-        return MaterialPageRoute(builder: (ctx) {
-          final arg = routeSettings.arguments as ProductScrnArgument;
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (context) => QtyController()),
-              ChangeNotifierProvider(create: (context) => VarientController())
-            ],
-            child: ProductDetails(arg: arg),
-          );
-        });
+        return MaterialPageRoute(
+          builder: (ctx) {
+            final arg = routeSettings.arguments as ProductScrnArgument;
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (context) => QtyController()),
+                ChangeNotifierProvider(create: (context) => VarientController())
+              ],
+              child: ProductDetails(arg: arg),
+            );
+          },
+        );
       case CheckOutScrn.routename:
-        return MaterialPageRoute(builder: (ctx) {
-          final arg = routeSettings.arguments as CheckoutModel;
-          return MultiProvider(providers: [
-            ChangeNotifierProvider(create: (context) => PaymentSelector()),
-            ChangeNotifierProvider(create: (context) => CheckoutAddControl())
-          ], child: CheckOutScrn(checkoutData: arg));
-        });
+        return MaterialPageRoute(
+          builder: (ctx) {
+            final arg = routeSettings.arguments as CheckoutModel;
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (context) => PaymentSelector()),
+                ChangeNotifierProvider(create: (context) => CheckoutAddControl()),
+              ],
+              child: CheckOutScrn(checkoutData: arg),
+            );
+          },
+        );
       case AddressScrn.routename:
         return MaterialPageRoute(
           builder: (ctx) {
             final arg = routeSettings.arguments as AddressScrnArg;
-
             return MultiProvider(providers: [
               ChangeNotifierProvider.value(value: arg.checkoutAddControl),
-              ChangeNotifierProvider(
-                create: (context) => AddressScrnController(),
-              )
+              ChangeNotifierProvider(create: (context) => AddressScrnController())
             ], child: const AddressScrn());
           },
         );
@@ -95,9 +121,7 @@ class AppRoute {
       case OrderDetails.routename:
         return MaterialPageRoute(builder: (ctx) {
           final arg = routeSettings.arguments as OrderDetailsArg;
-          return OrderDetails(
-            orderDetails: arg.order,orderId: arg.orderId,
-          );
+          return OrderDetails(orderDetails: arg.order, orderId: arg.orderId);
         });
       default:
         return _errorRoute();

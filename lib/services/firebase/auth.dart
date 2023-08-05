@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/screens/home/home.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 
@@ -38,9 +37,9 @@ class Auth {
       });
     } on FirebaseException catch (e) {
       Navigator.of(context).pop();
-      alertshower(e);
+      alertshower(context: context, text: e.message);
     } catch (e) {
-      log(e.toString());
+      alertshower(context: context, text: e.toString());
     }
   }
 
@@ -55,9 +54,9 @@ class Auth {
       });
     } on FirebaseException catch (e) {
       Navigator.of(context).pop();
-      alertshower(e);
+      alertshower(context: context, text: e.message);
     } catch (e) {
-      log(e.toString());
+      alertshower(context: context, text: e.toString());
     }
   }
 
@@ -84,7 +83,7 @@ class Auth {
         Navigator.of(context).pushReplacementNamed(Home.routename);
       });
     } catch (e) {
-      log(e.toString());
+      alertshower(context: context, text: e.toString());
     }
   }
 
@@ -96,28 +95,9 @@ class Auth {
       });
     } on FirebaseException catch (e) {
       Navigator.of(context).pop();
-      alertshower(e);
+      alertshower(context: context, text: e.message);
     } catch (e) {
-      log(e.toString());
+      alertshower(context: context, text: e.toString());
     }
-  }
-
-  alertshower(FirebaseException e) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Alert'),
-        content: Text(e.message ?? ''),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
   }
 }

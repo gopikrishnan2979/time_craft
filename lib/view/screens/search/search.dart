@@ -18,21 +18,21 @@ class SearchScrn extends StatelessWidget {
       child: Scaffold(
         backgroundColor: white,
         appBar: const AppbarCom(title: 'Search'),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ChangeNotifierProvider(
-                  create: (context) => VisibilityController(), child: SearchBoxWithFilter()),
-              Consumer<SearchProvider>(builder: (context, value, child) {
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ChangeNotifierProvider(
+                create: (context) => VisibilityController(), child: SearchBoxWithFilter()),
+            Expanded(
+              child: Consumer<SearchProvider>(builder: (context, value, child) {
                 if (value.searchlist.isEmpty) {
-                  return const SearchNotFound();
+                  return const SingleChildScrollView(child: SearchNotFound());
                 } else {
                   return SearchFoundGrid();
                 }
-              })
-            ],
-          ),
+              }),
+            )
+          ],
         ),
       ),
     );

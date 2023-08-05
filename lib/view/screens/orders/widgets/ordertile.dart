@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class OrderTile extends StatelessWidget {
-  const OrderTile({super.key, required this.image, required this.orderId, required this.title,required this.orderStatus});
+  const OrderTile(
+      {super.key,
+      required this.image,
+      required this.orderId,
+      required this.title,
+      required this.orderStatus});
   final String image;
   final String title;
   final String orderId;
@@ -17,7 +23,11 @@ class OrderTile extends StatelessWidget {
           SizedBox(
             width: kwidth * 0.2,
             height: kwidth * 0.2,
-            child: Image.network(image, fit: BoxFit.fitHeight),
+            child: Image.network(
+              image,
+              fit: BoxFit.fitHeight,
+              errorBuilder: (context, error, stackTrace) => errorShower(),
+            ),
           ),
           SizedBox(
             width: kwidth * 0.4,
@@ -25,16 +35,17 @@ class OrderTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text(title), Text(orderId, overflow: TextOverflow.ellipsis), Text(orderStatus)],
+              children: [
+                Text(title),
+                Text(orderId, overflow: TextOverflow.ellipsis),
+                Text(orderStatus)
+              ],
             ),
           ),
           SizedBox(
             width: kwidth * 0.1,
             height: kwidth * 0.2,
-            child: const Icon(
-              Icons.navigate_next_outlined,
-              size: 40,
-            ),
+            child: const Icon(Icons.navigate_next_outlined, size: 40),
           )
         ],
       ),

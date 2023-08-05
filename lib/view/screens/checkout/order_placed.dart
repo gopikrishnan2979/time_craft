@@ -16,19 +16,20 @@ class OrderPlaced extends StatelessWidget {
         child: Center(
           child: SizedBox(
             width: kwidth,
-            child:
-                LottieBuilder.network('https://assets5.lottiefiles.com/packages/lf20_gsigmrhp.json',
-                    onLoaded: (p0) => wait(context),
-                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('😢', style: TextStyle(fontSize: 30)),
-                          Text('Something Error', style: interbold)
-                        ],
-                      );
-                    },
-                    fit: BoxFit.fitWidth),
+            child: LottieBuilder.network(
+              'https://assets5.lottiefiles.com/packages/lf20_gsigmrhp.json',
+              onLoaded: (p0) => wait(context),
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('😢', style: TextStyle(fontSize: 30)),
+                    Text('Something Error', style: interbold)
+                  ],
+                );
+              },
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
       ),

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class PaymentTiles extends StatelessWidget {
-  const PaymentTiles(
-      {super.key, required this.child, required this.isactiverazorpay});
+  const PaymentTiles({super.key, required this.child, required this.isactiverazorpay});
   final Widget child;
   final bool isactiverazorpay;
 
@@ -23,16 +22,15 @@ class PaymentTiles extends StatelessWidget {
           children: [
             Expanded(child: Center(child: child)),
             Container(
-              decoration:
-                  BoxDecoration(border: Border.all(), shape: BoxShape.circle),
+              decoration: BoxDecoration(border: Border.all(), shape: BoxShape.circle),
               width: kwidth * 0.08,
               child: Center(
                 child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          isactiverazorpay ? Colors.black : Colors.transparent),
                   width: kwidth * 0.05,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isactiverazorpay ? Colors.black : Colors.transparent,
+                  ),
                 ),
               ),
             )

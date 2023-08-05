@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/cart/cart_screen.dart';
 import 'package:time_craft/view/screens/home/widgets/drawer_tile.dart';
@@ -32,14 +33,17 @@ class HomeDrawer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
+                        onBackgroundImageError: (exception, stackTrace) => errorShower(),
                         radius: khieght * 0.045,
                         backgroundImage: NetworkImage(snapshot.data?['image'] ?? backgroundImage),
                         child: Center(
                           child: snapshot.data!['image'] == null
                               ? Text(
                                   snapshot.data!['name'][0],
-                                  style:
-                                      GoogleFonts.inter(fontSize: 50, fontWeight: FontWeight.w400),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 )
                               : const SizedBox(),
                         ),
@@ -51,44 +55,47 @@ class HomeDrawer extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              height: khieght * 0.02,
+            SizedBox(height: khieght * 0.02),
+            DrawerTile(
+              ontap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(WishlistScreen.routename);
+              },
+              icon: const Icon(Icons.favorite_border),
+              title: 'Wishlist',
             ),
             DrawerTile(
-                ontap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed(WishlistScreen.routename);
-                },
-                icon: const Icon(Icons.favorite_border),
-                title: 'Wishlist'),
+              ontap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(Cart.routename);
+              },
+              icon: const Icon(Icons.shopping_cart),
+              title: 'Cart',
+            ),
             DrawerTile(
-                ontap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed(Cart.routename);
-                },
-                icon: const Icon(Icons.shopping_cart),
-                title: 'Cart'),
+              ontap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(MyOrders.routename);
+              },
+              icon: const Icon(Icons.inventory),
+              title: 'Orders',
+            ),
             DrawerTile(
-                ontap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed(MyOrders.routename);
-                },
-                icon: const Icon(Icons.inventory),
-                title: 'Orders'),
+              ontap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(MyProfile.routename);
+              },
+              icon: const Icon(Icons.person),
+              title: 'Profile',
+            ),
             DrawerTile(
-                ontap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed(MyProfile.routename);
-                },
-                icon: const Icon(Icons.person),
-                title: 'Profile'),
-            DrawerTile(
-                ontap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushNamed(Settings.routename);
-                },
-                icon: const Icon(Icons.settings),
-                title: 'Settings'),
+              ontap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(Settings.routename);
+              },
+              icon: const Icon(Icons.settings),
+              title: 'Settings',
+            ),
           ],
         ),
       ),

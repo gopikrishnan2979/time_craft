@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_craft/controller/network_connectivity.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/screens/home/home.dart';
@@ -27,6 +28,7 @@ class SplashScreen extends StatelessWidget {
   }
 
   wait(BuildContext context) async {
+    Provider.of<NetworkConnectivity>(context, listen: false).init();
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {

@@ -92,24 +92,23 @@ class AddressAdding extends StatelessWidget {
     return TextFormField(
       validator: (value) => Validation().addressValidation(isOptional: isOptional, value: value),
       controller: controller,
-      decoration: InputDecoration(
-          fillColor: white,
-          filled: true,
-          hintText: hint,
-          hintStyle: GoogleFonts.inter(color: Colors.grey),
-          prefixIcon: const Icon(Icons.not_listed_location_rounded),
-          prefixIconColor: black,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                color: black,
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                color: black,
-              ))),
       keyboardType: keyboardtype,
+      decoration: InputDecoration(
+        fillColor: white,
+        filled: true,
+        hintText: hint,
+        hintStyle: GoogleFonts.inter(color: Colors.grey),
+        prefixIcon: const Icon(Icons.not_listed_location_rounded),
+        prefixIconColor: black,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: black),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: black),
+        ),
+      ),
     );
   }
 

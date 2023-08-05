@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:time_craft/view/common/widgets/network_error_widget.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 import 'package:time_craft/view/screens/signin_signup/signup/widgets/signup_button_widget.dart';
@@ -46,12 +47,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ' Create a new account',
                       style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 25),
                     ),
+                    NetworkErrorWidget(replacement: sizedboxwithheight(khieght * 0.05)),
                     Center(
                       child: SizedBox(
                         height: khieght * 0.233,
-                        child: Lottie.asset(
-                          'assets/lotties/SignUp.json',
-                        ),
+                        child: Lottie.asset('assets/lotties/SignUp.json'),
                       ),
                     ),
                     TextfieldSignup(
@@ -73,18 +73,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Already have an account?",
-                            style: interbold,
-                          ),
+                          Text("Already have an account?", style: interbold),
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed(SignInPage.routename);
                             },
-                            child: Text(
-                              "Sign In",
-                              style: interbluebold,
-                            ),
+                            child: Text("Sign In", style: interbluebold),
                           )
                         ],
                       ),

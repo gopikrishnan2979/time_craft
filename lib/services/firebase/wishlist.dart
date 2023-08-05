@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
+import 'package:time_craft/view/core/styles.dart';
 
 class WishlistService {
   WishlistService({required this.context});
@@ -15,11 +17,11 @@ class WishlistService {
           .doc(productId)
           .set({'productid': productId}).then((value) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Successfully added')));
+            .showSnackBar(snackBarDesign(text: 'Added to wishlist', color: addingColor));
       });
       return;
     } on FirebaseException catch (e) {
-      alertshower(e.message);
+      alertshower(context: context, text: e.message);
       return;
     }
   }
@@ -34,31 +36,12 @@ class WishlistService {
           .delete()
           .then((value) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Removed from wishlist')));
+            .showSnackBar(snackBarDesign(text: 'Removed from wishlist', color: removingColor));
         return;
       });
     } on FirebaseException catch (e) {
-      alertshower(e.message);
+      alertshower(context: context, text: e.message);
       return;
     }
-  }
-
-  alertshower(String? e) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Alert'),
-        content: Text(e ?? ''),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
   }
 }

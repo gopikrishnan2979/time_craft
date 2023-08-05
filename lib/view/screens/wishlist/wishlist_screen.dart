@@ -28,40 +28,43 @@ class WishlistScreen extends StatelessWidget {
           }
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: khieght * 0.32,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5),
-            itemBuilder: (context, index) {
-              return StreamBuilder(
-                  stream:
-                      FirebaseInstanceModel.products.doc(wishlistCon.wishlist[index]).snapshots(),
-                  builder: (context, itemsnapshot) {
-                    if (itemsnapshot.data == null) {
-                      return const Loading();
-                    }
-                    return InkWell(
-                      onTap: () {
-                        var data = itemsnapshot.data!;
-                        log('${wishlistCon.wishlist}');
-                        Navigator.of(context).pushNamed(ProductDetails.routename,
-                            arguments: ProductScrnArgument(
-                              data: productmodelMaker(data),
-                            ));
-                      },
-                      child: ItemCard(
-                        productId: itemsnapshot.data!.id,
-                        name: itemsnapshot.data!['name'],
-                        imagepath: itemsnapshot.data!['imagelist'][0],
-                        smallDiscription: itemsnapshot.data!['smalldiscription'],
-                        discount: itemsnapshot.data!['discount'],
-                        price: itemsnapshot.data!['price'],
-                      ),
-                    );
-                  });
-            },
+              crossAxisCount: 2,
+              mainAxisExtent: khieght * 0.32,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+            ),
             padding: const EdgeInsets.all(8),
             itemCount: wishlistCon.wishlist.length,
+            itemBuilder: (context, index) {
+              return StreamBuilder(
+                stream: FirebaseInstanceModel.products.doc(wishlistCon.wishlist[index]).snapshots(),
+                builder: (context, itemsnapshot) {
+                  if (itemsnapshot.data == null) {
+                    return const Loading();
+                  }
+                  return InkWell(
+                    onTap: () {
+                      var data = itemsnapshot.data!;
+                      log('${wishlistCon.wishlist}');
+                      Navigator.of(context).pushNamed(
+                        ProductDetails.routename,
+                        arguments: ProductScrnArgument(
+                          data: productmodelMaker(data),
+                        ),
+                      );
+                    },
+                    child: ItemCard(
+                      productId: itemsnapshot.data!.id,
+                      name: itemsnapshot.data!['name'],
+                      imagepath: itemsnapshot.data!['imagelist'][0],
+                      smallDiscription: itemsnapshot.data!['smalldiscription'],
+                      discount: itemsnapshot.data!['discount'],
+                      price: itemsnapshot.data!['price'],
+                    ),
+                  );
+                },
+              );
+            },
           );
         }),
       ),

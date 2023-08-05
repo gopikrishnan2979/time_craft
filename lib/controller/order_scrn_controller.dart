@@ -6,15 +6,19 @@ class OrderScrnController extends ChangeNotifier {
   List<OrderModel> cartlist = [];
   List<String> orderIdlist = [];
   getOrderIds() async {
-    cartlist.clear();
-    await FirebaseInstanceModel.userOrder.get().then((value) async {
-      orderIdlist = value.docs.map((doc) => doc.id).toList();
-      for (String orderId in orderIdlist) {
-        await FirebaseInstanceModel.order.doc(orderId).get().then((value) {
-          cartlist.add(OrderModel.fromMap(value));
-        });
-      }
-    });
-    notifyListeners();
+    try {
+      cartlist.clear();
+      await FirebaseInstanceModel.userOrder.get().then((value) async {
+        orderIdlist = value.docs.map((doc) => doc.id).toList();
+        for (String orderId in orderIdlist) {
+          await FirebaseInstanceModel.order.doc(orderId).get().then((value) {
+            cartlist.add(OrderModel.fromMap(value));
+          });
+        }
+      });
+      notifyListeners();
+    } catch (e) {
+      return;
+    }
   }
 }

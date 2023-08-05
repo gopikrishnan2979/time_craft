@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/user_editor_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/common/widgets/textfield_widget.dart';
+import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/address/widgets/address_adding.dart';
 
 class UserDataEditor extends StatelessWidget {
@@ -36,18 +38,22 @@ class UserDataEditor extends StatelessWidget {
             child: const Text('Cancel')),
         TextButton(
             onPressed: () {
-              if (formkey.currentState!.validate()) {
-                if (isname) {
-                  usernameChange(value: controller.text.trim(), isname: true, context: ctx);
-                } else {
-                  usernameChange(value: controller.text.trim(), isname: false, context: ctx);
-                }
-                Navigator.of(context).pop();
-              }
+              change(value: controller.text.trim(), context: context);
             },
             child: const Text('Change'))
       ],
     );
+  }
+
+  change({required String value, required BuildContext context}) {
+    if (formkey.currentState!.validate()) {
+      if (isname) {
+        usernameChange(value: value, isname: true, context: ctx);
+      } else {
+        usernameChange(value: value, isname: false, context: ctx);
+      }
+      Navigator.of(context).pop();
+    }
   }
 
   usernameChange(
@@ -58,7 +64,7 @@ class UserDataEditor extends StatelessWidget {
         .set(data, SetOptions(merge: true))
         .then((value) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Successfully changed')));
+          .showSnackBar(snackBarDesign(text: 'Successfully changed', color: addingColor));
     });
   }
 }

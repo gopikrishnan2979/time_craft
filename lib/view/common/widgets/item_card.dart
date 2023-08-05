@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ItemCard extends StatelessWidget {
@@ -27,16 +28,11 @@ class ItemCard extends StatelessWidget {
     WishlistController wishlistCon = Provider.of<WishlistController>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: Colors.grey,
-          ),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 1.0,
-            ),
-          ]),
+        color: Colors.white,
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(kwidth * 0.025),
+        boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1.0)],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

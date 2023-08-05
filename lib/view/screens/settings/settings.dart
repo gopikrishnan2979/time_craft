@@ -22,33 +22,19 @@ class Settings extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {},
-              child: const SettingsTiles(
-                icon: Icon(
-                  Icons.info,
-                ),
-                text: 'About',
-              ),
+              child: const SettingsTiles(icon: Icon(Icons.info), text: 'About'),
             ),
             InkWell(
               onTap: () {},
-              child: const SettingsTiles(
-                icon: Icon(Icons.share),
-                text: 'Invite Friends',
-              ),
+              child: const SettingsTiles(icon: Icon(Icons.share), text: 'Invite Friends'),
             ),
             InkWell(
               onTap: () {},
-              child: const SettingsTiles(
-                icon: Icon(Icons.shield_outlined),
-                text: 'Privacy Policy',
-              ),
+              child: const SettingsTiles(icon: Icon(Icons.shield_outlined), text: 'Privacy Policy'),
             ),
             InkWell(
               onTap: () {},
-              child: const SettingsTiles(
-                icon: Icon(Icons.note),
-                text: 'Terms & Conditions',
-              ),
+              child: const SettingsTiles(icon: Icon(Icons.note), text: 'Terms & Conditions'),
             ),
             InkWell(
               onTap: () {
@@ -69,10 +55,7 @@ class Settings extends StatelessWidget {
                 );
                 Auth(context: context).signOut();
               },
-              child: const SettingsTiles(
-                icon: Icon(Icons.logout),
-                text: 'Logout',
-              ),
+              child: const SettingsTiles(icon: Icon(Icons.logout), text: 'Logout'),
             )
           ],
         ),

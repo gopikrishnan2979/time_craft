@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:time_craft/view/common/widgets/loading.dart';
+
+//const color used in the code
 
 const Color white = Colors.white;
 const Color black = Colors.black;
+const Color addingColor = Color.fromARGB(122, 255, 30, 30);
+const Color removingColor = Color.fromARGB(121, 30, 255, 113);
+
+// size of the screen initialized during the entering
+
 late double khieght;
 late double kwidth;
-final TextStyle interbold = GoogleFonts.inter(fontWeight: FontWeight.bold, color: black);
-final TextStyle inter = GoogleFonts.inter(color: black);
-final TextStyle interwhite = GoogleFonts.inter(color: white);
-final TextStyle interwhitebold = GoogleFonts.inter(color: white, fontWeight: FontWeight.bold);
-final TextStyle interbluebold =
+
+//textstyles used in code
+
+final interbold = GoogleFonts.inter(fontWeight: FontWeight.bold, color: black);
+final inter = GoogleFonts.inter(color: black);
+final interwhite = GoogleFonts.inter(color: white);
+final interwhitebold = GoogleFonts.inter(color: white, fontWeight: FontWeight.bold);
+final inter14bold = GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
+final inter16bold = GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold);
+final intergreenbold = GoogleFonts.inter(fontWeight: FontWeight.bold, color: Colors.green);
+final interbluebold =
     GoogleFonts.inter(color: const Color(0xFF3964FC), fontWeight: FontWeight.bold);
-final TextStyle orderText = GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold);
-String imgpath =
-    'https://img.tatacliq.com/images/i11/437Wx649H/MP000000017555695_437Wx649H_202305151743161.jpeg';
+final inter14greenbold =
+    GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green);
+//sized box with specific height
+
 sizedboxwithheight(double? height) {
-  return SizedBox(
-    height: height,
-  );
+  return SizedBox(height: height);
 }
-
-errorShower() {
-  return const ColoredBox(
-    color: Colors.grey,
-    child: Loading(),
-  );
-}
-
-// List<String> varients = ['Red', 'Brown', 'Silver', 'Gold', 'Black', 'White'];

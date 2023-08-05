@@ -12,19 +12,23 @@ class CartController extends ChangeNotifier {
 
   //fetching data from cart databases
   getCartList() async {
-    List data = await FirebaseInstanceModel.cart
-        .doc(FirebaseInstanceModel.uid)
-        .collection('usercart')
-        .get()
-        .then((value) => value.docs);
-    totalCartPrice = 0;
-    cartList.clear();
-    for (var element in data) {
-      CartModel cartItem = CartModel.fromData(data: element);
-      totalCartPrice += (cartItem.price! * cartItem.quantity!);
-      cartList.add(cartItem);
+    try {
+      List data = await FirebaseInstanceModel.cart
+          .doc(FirebaseInstanceModel.uid)
+          .collection('usercart')
+          .get()
+          .then((value) => value.docs);
+      totalCartPrice = 0;
+      cartList.clear();
+      for (var element in data) {
+        CartModel cartItem = CartModel.fromData(data: element);
+        totalCartPrice += (cartItem.price! * cartItem.quantity!);
+        cartList.add(cartItem);
+      }
+      notifyListeners();
+    } catch (e) {
+      return;
     }
-    notifyListeners();
   }
 
   //cart product quantity increasing

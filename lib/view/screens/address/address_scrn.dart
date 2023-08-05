@@ -17,15 +17,12 @@ class AddressScrn extends StatelessWidget {
     Provider.of<AddressScrnController>(context, listen: false).getAddressList();
     return SafeArea(
       child: Scaffold(
-        appBar: const AppbarCom(
-          title: 'Address',
-        ),
+        appBar: const AppbarCom(title: 'Address'),
         body: Column(
           children: [
             Expanded(
               child: Consumer<AddressScrnController>(builder: (context, controller, child) {
                 bool isListempty = controller.addressList.isEmpty;
-
                 return isListempty ? addressListIsEmpty() : addressListBuilder(context: context);
               }),
             ),
@@ -34,18 +31,18 @@ class AddressScrn extends StatelessWidget {
               child: ColoredBox(
                 color: black,
                 child: Center(
-                    child: ElevatedButton(
-                        onPressed: () {
-                          _addAddress(context);
-                        },
-                        style: ButtonStyle(
-                            fixedSize: MaterialStatePropertyAll(Size(kwidth * 0.6, khieght * 0.01)),
-                            backgroundColor: const MaterialStatePropertyAll(white),
-                            foregroundColor: const MaterialStatePropertyAll(black),
-                            shape: const MaterialStatePropertyAll(ContinuousRectangleBorder())),
-                        child: const Text(
-                          'ADD ADDRESS',
-                        ))),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _addAddress(context);
+                    },
+                    style: ButtonStyle(
+                        fixedSize: MaterialStatePropertyAll(Size(kwidth * 0.6, khieght * 0.01)),
+                        backgroundColor: const MaterialStatePropertyAll(white),
+                        foregroundColor: const MaterialStatePropertyAll(black),
+                        shape: const MaterialStatePropertyAll(ContinuousRectangleBorder())),
+                    child: const Text('ADD ADDRESS'),
+                  ),
+                ),
               ),
             )
           ],
@@ -89,17 +86,15 @@ class AddressScrn extends StatelessWidget {
               width: kwidth * 0.08,
               child: Center(
                 child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isSelected ? Colors.black : Colors.transparent),
                   width: kwidth * 0.05,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isSelected ? Colors.black : Colors.transparent,
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              width: kwidth * 0.7,
-              child: addressContainer(address: address),
-            )
+            SizedBox(width: kwidth * 0.7, child: addressContainer(address: address))
           ],
         ),
       ),
@@ -111,14 +106,13 @@ class AddressScrn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          address.localAddress,
-          overflow: TextOverflow.ellipsis,
-        ),
+        Text(address.localAddress, overflow: TextOverflow.ellipsis),
         Text('${address.city}, ${address.district}'),
         Text('${address.state},'),
         Text('Pin: ${address.pincode}'),
-        address.landmark != 'no landmark' ? Text('landmark: ${address.landmark}') : const SizedBox(),
+        address.landmark != 'no landmark'
+            ? Text('landmark: ${address.landmark}')
+            : const SizedBox(),
       ],
     );
   }
@@ -127,24 +121,23 @@ class AddressScrn extends StatelessWidget {
     return Center(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Lottie.asset('assets/lotties/AddressEmpty.json'),
-        const Text('Address list is empty')
+        const Text('Address list is empty'),
       ]),
     );
   }
 
   void _addAddress(BuildContext context) {
     showModalBottomSheet(
-        useSafeArea: true,
-        context: context,
-        // constraints: BoxConstraints(minWidth: kwidth),
-        isScrollControlled: true,
-        backgroundColor: black,
-        builder: (_) {
-          return ChangeNotifierProvider(
-              create: (context) => AddressTextController(),
-              child: AddressAdding(
-                ctx: context,
-              ));
-        });
+      useSafeArea: true,
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: black,
+      builder: (_) {
+        return ChangeNotifierProvider(
+          create: (context) => AddressTextController(),
+          child: AddressAdding(ctx: context),
+        );
+      },
+    );
   }
 }

@@ -22,13 +22,8 @@ class SettingsTiles extends StatelessWidget {
           child: Row(
             children: [
               icon,
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                text,
-                style: GoogleFonts.inter(fontWeight: FontWeight.w500),
-              )
+              const SizedBox(width: 10),
+              Text(text, style: GoogleFonts.inter(fontWeight: FontWeight.w500))
             ],
           )),
     );

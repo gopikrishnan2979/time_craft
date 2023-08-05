@@ -27,31 +27,15 @@ class TextfieldSignup extends StatelessWidget {
         children: [
           sizedboxwithheight(khieght * 0.01),
           textfieldheading(text: 'Name'),
-          // sizedboxwithheight(7.5),
-          TextFieldCustom(
-            hint: 'Enter Your Name',
-            controller: nameController,
-            isname: true,
-          ),
+          TextFieldCustom(hint: 'Enter Your Name', controller: nameController, isname: true),
           sizedboxwithheight(khieght * 0.01),
           textfieldheading(text: 'Phone'),
-          // sizedboxwithheight(7.5),
-          TextFieldCustom(
-            hint: 'Enter Your Phone no.',
-            controller: phonecontroller,
-            isphone: true,
-          ),
+          TextFieldCustom(hint: 'Enter Your Phone no.', controller: phonecontroller, isphone: true),
           sizedboxwithheight(khieght * 0.01),
           textfieldheading(text: 'Email'),
-          // sizedboxwithheight(7.5),
-          TextFieldCustom(
-            hint: 'Enter Your Email',
-            controller: emailcontroller,
-            isemail: true,
-          ),
+          TextFieldCustom(hint: 'Enter Your Email', controller: emailcontroller, isemail: true),
           sizedboxwithheight(khieght * 0.01),
           textfieldheading(text: 'Password'),
-          // sizedboxwithheight(7.5),
           ChangeNotifierProvider(
               create: (context) => ObsecureController(),
               child: Consumer<ObsecureController>(builder: (context, obsecureController, child) {
@@ -65,15 +49,16 @@ class TextfieldSignup extends StatelessWidget {
                     onPressed: () {
                       obsecureController.toggleObsecure();
                     },
-                    icon: Icon(obsecureController.isObsecure
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined),
+                    icon: Icon(
+                      obsecureController.isObsecure
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
                   ),
                 );
               })),
           sizedboxwithheight(khieght * 0.01),
           textfieldheading(text: 'Confirm Password'),
-          // sizedboxwithheight(7.5),
           ChangeNotifierProvider(
             create: (context) => ObsecureController(),
             child: Consumer<ObsecureController>(builder: (context, obsecureController, child) {
@@ -102,9 +87,6 @@ class TextfieldSignup extends StatelessWidget {
   }
 
   Widget textfieldheading({required String text}) {
-    return Text(
-      text,
-      style: interbold,
-    );
+    return Text(text, style: interbold);
   }
 }

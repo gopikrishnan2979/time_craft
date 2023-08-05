@@ -19,7 +19,6 @@ class CartItems extends StatelessWidget {
                 children: [
                   sizedboxwithheight(20),
                   Expanded(
-                    // height: khieght * 0.48,
                     child: ListView.separated(
                         itemBuilder: (context, index) {
                           return CartTile(index: index);
@@ -88,7 +87,6 @@ class CartItems extends StatelessWidget {
               ),
             ),
           ),
-          // sizedboxwithheight(khieght * 0.01)
         ],
       ),
     );

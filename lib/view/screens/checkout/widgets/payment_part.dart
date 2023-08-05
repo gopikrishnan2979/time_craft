@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/payment_selector.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/widgets/payment_tiles.dart';
 
@@ -20,10 +21,7 @@ class PaymentPart extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               sizedboxwithheight(khieght * 0.01),
-              Text(
-                'Select your payment method',
-                style: inter,
-              ),
+              Text('Select your payment method', style: inter),
               sizedboxwithheight(khieght * 0.01),
               InkWell(
                 borderRadius: BorderRadius.circular(kwidth * 0.03),
@@ -37,6 +35,7 @@ class PaymentPart extends StatelessWidget {
                       width: kwidth * 0.4,
                       alignment: Alignment(0, -khieght * 0.00025),
                       fit: BoxFit.fitWidth,
+                      errorBuilder: (context, error, stackTrace) => errorShower(),
                     )),
               ),
               sizedboxwithheight(khieght * 0.01),

@@ -19,7 +19,7 @@ class SignInButton extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: khieght * 0.025),
+            padding: EdgeInsets.only(top: khieght * 0.0),
             child: ElevatedButton(
                 onPressed: () {
                   if (formkey.currentState!.validate()) {
@@ -52,19 +52,18 @@ class SignInButton extends StatelessWidget {
       width: kwidth * 0.7,
       height: khieght * 0.05,
       child: Center(
-        child: Text(
-          text,
-          style: interwhitebold,
-        ),
+        child: Text(text, style: interwhitebold),
       ),
     );
   }
 
   ButtonStyle buttonstyle() {
     return ButtonStyle(
-        shape: MaterialStatePropertyAll(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-        backgroundColor: const MaterialStatePropertyAll(black));
+      shape: MaterialStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      backgroundColor: const MaterialStatePropertyAll(black),
+    );
   }
 
   loading(BuildContext context) {
@@ -76,9 +75,10 @@ class SignInButton extends StatelessWidget {
           height: khieght * 0.2,
           child: Center(
             child: SizedBox(
-                height: khieght * 0.05,
-                width: khieght * 0.05,
-                child: const CircularProgressIndicator()),
+              height: khieght * 0.05,
+              width: khieght * 0.05,
+              child: const CircularProgressIndicator(),
+            ),
           ),
         ),
       ),

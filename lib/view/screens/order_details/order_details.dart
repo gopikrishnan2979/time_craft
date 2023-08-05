@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:order_tracker_zen/order_tracker_zen.dart';
 import 'package:time_craft/model/order_model.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
@@ -14,6 +13,7 @@ class OrderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String payment = orderDetails.israzorpay! ? 'Razorpay' : 'Cash on Delivery';
+    var address = orderDetails.address!;
     return SafeArea(
         child: Scaffold(
       appBar: const AppbarCom(title: 'Order Details'),
@@ -23,7 +23,7 @@ class OrderDetails extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.shopping_cart_outlined),
-              Text('ITEMS', style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text('ITEMS', style: inter16bold),
             ],
           ),
           sizedboxwithheight(khieght * 0.008),
@@ -37,52 +37,34 @@ class OrderDetails extends StatelessWidget {
           sizedboxwithheight(khieght * 0.05),
           Text(
             'Order ID: $orderId',
-            style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
+            style: inter16bold,
           ),
           sizedboxwithheight(khieght * 0.008),
-          Text(
-            'Total Price: ${orderDetails.totalPrice}',
-            style: orderText,
-          ),
+          Text('Total Price: ${orderDetails.totalPrice}', style: inter14bold),
           sizedboxwithheight(khieght * 0.008),
-          Text(
-            'Payment Method: $payment',
-            style: orderText,
-          ),
+          Text('Payment Method: $payment', style: inter14bold),
           sizedboxwithheight(khieght * 0.008),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Delivering Address :',
-                style: orderText,
-              ),
+              Text('Delivering Address :', style: inter14bold),
               SizedBox(
                 width: kwidth * 0.5,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text('${address.localAddress},', style: inter14bold),
                     Text(
-                      '${orderDetails.address!.localAddress},',
-                      style: orderText,
+                      '${address.city},${address.district},',
+                      style: inter14bold,
                     ),
-                    Text(
-                      '${orderDetails.address!.city},${orderDetails.address!.district},',
-                      style: orderText,
-                    ),
-                    Text(
-                      '${orderDetails.address!.state},',
-                      style: orderText,
-                    ),
-                    Text(
-                      'Pin:${orderDetails.address!.pincode}',
-                      style: orderText,
-                    ),
-                    orderDetails.address!.landmark != 'no landmark'
+                    Text('${address.state},', style: inter14bold),
+                    Text('Pin:${address.pincode}', style: inter14bold),
+                    address.landmark != 'no landmark'
                         ? Text(
-                            'landmark:${orderDetails.address!.landmark}',
-                            style: orderText,
+                            'landmark:${address.landmark}',
+                            style: inter14bold,
                             overflow: TextOverflow.ellipsis,
                           )
                         : const SizedBox(),
@@ -94,11 +76,12 @@ class OrderDetails extends StatelessWidget {
           sizedboxwithheight(khieght * 0.05),
           OrderTrackerZen(
               tracker_data: tracker(
-                  status: orderDetails.orderStatus!,
-                  orderdate: orderDetails.orderPlacedDate,
-                  shippedDate: orderDetails.shippingDate,
-                  outForDeliveryDate: orderDetails.outForDeliveryDate,
-                  deliveryDate: orderDetails.deliveryDate))
+            status: orderDetails.orderStatus!,
+            orderdate: orderDetails.orderPlacedDate,
+            shippedDate: orderDetails.shippingDate,
+            outForDeliveryDate: orderDetails.outForDeliveryDate,
+            deliveryDate: orderDetails.deliveryDate,
+          ))
         ],
       ),
     ));
@@ -114,30 +97,42 @@ class OrderDetails extends StatelessWidget {
     List<TrackerData> trackerdata = [];
 
     trackerdata.add(trackerMaker(
-        title: 'Order Placed', date: orderdate!, displaytext: 'Your order is placed on'));
+      title: 'Order Placed',
+      date: orderdate!,
+      displaytext: 'Your order is placed on',
+    ));
+
     if (shippedDate != 'Not setted') {
       trackerdata.add(trackerMaker(
-          title: 'Order Shipped', date: shippedDate!, displaytext: 'Your order is shipped on'));
+        title: 'Order Shipped',
+        date: shippedDate!,
+        displaytext: 'Your order is shipped on',
+      ));
     }
+
     if (outForDeliveryDate != 'Not setted') {
       trackerdata.add(trackerMaker(
-          title: 'Out For Delivery',
-          date: outForDeliveryDate!,
-          displaytext: 'Your order is out for delivery on'));
+        title: 'Out For Delivery',
+        date: outForDeliveryDate!,
+        displaytext: 'Your order is out for delivery on',
+      ));
     }
+
     if (deliveryDate != 'Not setted') {
       trackerdata.add(trackerMaker(
           title: 'Order Delivered',
           date: deliveryDate!,
           displaytext: 'Your order is succussfully delivered'));
     }
+
     return trackerdata;
   }
 
   trackerMaker({required String title, required String date, required displaytext}) {
     return TrackerData(
-        title: title,
-        date: date.substring(0, 10),
-        tracker_details: [TrackerDetails(title: displaytext, datetime: date.substring(0, 16))]);
+      title: title,
+      date: date.substring(0, 10),
+      tracker_details: [TrackerDetails(title: displaytext, datetime: date.substring(0, 16))],
+    );
   }
 }

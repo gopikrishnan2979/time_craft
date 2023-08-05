@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/cart_controller.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class CartTile extends StatelessWidget {
@@ -20,9 +21,7 @@ class CartTile extends StatelessWidget {
               fit: BoxFit.fitHeight,
               errorBuilder: (context, error, stackTrace) => errorShower(),
             )),
-        SizedBox(
-          width: kwidth * 0.06,
-        ),
+        SizedBox(width: kwidth * 0.06),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,11 +30,7 @@ class CartTile extends StatelessWidget {
             Text('Color: ${cartController.cartList[index].varient}', style: inter),
           ],
         ),
-        Expanded(
-          child: SizedBox(
-            width: kwidth * 0.1,
-          ),
-        ),
+        Expanded(child: SizedBox(width: kwidth * 0.1)),
         Column(
           children: [
             SizedBox(

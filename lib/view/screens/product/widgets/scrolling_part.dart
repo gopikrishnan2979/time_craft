@@ -31,13 +31,13 @@ class ProductScrollingPart extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kwidth * 0.08),
               child: ProductDeliveryAndDetails(
-                  isAnalog: data.data.isanalog, isWaterResistant: data.data.isWaterResistant),
+                isAnalog: data.data.isanalog,
+                isWaterResistant: data.data.isWaterResistant,
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: kwidth * 0.08),
-              child: ProductVarientsToLast(
-                varients: data.data.varients,
-              ),
+              child: ProductVarientsToLast(varients: data.data.varients),
             ),
           ],
         ),

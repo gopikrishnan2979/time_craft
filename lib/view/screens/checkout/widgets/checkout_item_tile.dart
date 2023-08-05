@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_craft/model/cart_model.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class CheckoutItemTile extends StatelessWidget {
@@ -20,9 +21,8 @@ class CheckoutItemTile extends StatelessWidget {
               border: Border.all(color: Colors.grey),
               image: DecorationImage(
                 fit: BoxFit.fitHeight,
-                image: NetworkImage(
-                  data.imageLink!,
-                ),
+                onError: (exception, stackTrace) => errorShower(),
+                image: NetworkImage(data.imageLink!),
               ),
             ),
           ),
@@ -46,10 +46,7 @@ class CheckoutItemTile extends StatelessWidget {
               border: Border.all(),
             ),
             child: Center(
-              child: Text(
-                '${data.quantity}',
-                style: interbold,
-              ),
+              child: Text('${data.quantity}', style: interbold),
             ),
           )
         ],

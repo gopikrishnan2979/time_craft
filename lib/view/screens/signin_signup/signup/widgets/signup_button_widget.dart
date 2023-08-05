@@ -30,9 +30,10 @@ class SignUpButton extends StatelessWidget {
                     height: khieght * 0.2,
                     child: Center(
                       child: SizedBox(
-                          height: khieght * 0.05,
-                          width: khieght * 0.05,
-                          child: const CircularProgressIndicator()),
+                        height: khieght * 0.05,
+                        width: khieght * 0.05,
+                        child: const CircularProgressIndicator(),
+                      ),
                     ),
                   ),
                 ),
@@ -43,8 +44,6 @@ class SignUpButton extends StatelessWidget {
                   phone: phonecontroller.text.trim(),
                   username: namecontroller.text.trim());
             }
-            // validationController.validationbuilder();
-            // Navigator.of(context).pushReplacementNamed(Home.routename);
           },
           style: buttonstyle(),
           child: buttonchild(text: 'Sign Up')),
@@ -56,18 +55,17 @@ class SignUpButton extends StatelessWidget {
       width: kwidth * 0.7,
       height: khieght * 0.05,
       child: Center(
-        child: Text(
-          text,
-          style: interwhitebold,
-        ),
+        child: Text(text, style: interwhitebold),
       ),
     );
   }
 
   ButtonStyle buttonstyle() {
     return ButtonStyle(
-        shape: MaterialStatePropertyAll(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-        backgroundColor: const MaterialStatePropertyAll(black));
+      shape: MaterialStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      backgroundColor: const MaterialStatePropertyAll(black),
+    );
   }
 }

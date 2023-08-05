@@ -6,11 +6,15 @@ class WishlistController extends ChangeNotifier {
   List<String> wishlist = [];
 
   getwishlist() async {
-    wishlist = await FirebaseInstanceModel.wishlist
-        .doc(FirebaseInstanceModel.uid)
-        .collection('userwishlist')
-        .get()
-        .then((value) => value.docs.map((element) => element.id).toList());
+    try {
+      wishlist = await FirebaseInstanceModel.wishlist
+          .doc(FirebaseInstanceModel.uid)
+          .collection('userwishlist')
+          .get()
+          .then((value) => value.docs.map((element) => element.id).toList());
+    } catch (e) {
+      return;
+    }
   }
 
   add({required String productId, required BuildContext context}) {

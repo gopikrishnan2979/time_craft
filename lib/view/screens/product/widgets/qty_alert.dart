@@ -10,19 +10,16 @@ import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
 
 class QtyAlert extends StatelessWidget {
-  const QtyAlert({super.key, required this.ctx, required this.isToCart, required this.data});
-
   final bool isToCart;
   final BuildContext ctx;
   final ProductModel data;
+  const QtyAlert({super.key, required this.ctx, required this.isToCart, required this.data});
+
   @override
   Widget build(BuildContext context) {
     Provider.of<QtyController>(ctx, listen: false).qty = 1;
     return AlertDialog(
-      title: Text(
-        'ADD TO CART',
-        style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold),
-      ),
+      title: Text('ADD TO CART', style: inter16bold),
       contentPadding: EdgeInsets.symmetric(horizontal: kwidth * 0.1, vertical: khieght * 0.01),
       content: ChangeNotifierProvider.value(
         value: Provider.of<QtyController>(ctx, listen: false),
@@ -89,11 +86,7 @@ class QtyAlert extends StatelessWidget {
           child: SizedBox(
             width: khieght * 0.025,
             height: khieght * 0.025,
-            child: Icon(
-              icon,
-              color: white,
-              size: khieght * 0.02,
-            ),
+            child: Icon(icon, color: white, size: khieght * 0.02),
           ),
         ),
       ),
@@ -127,12 +120,13 @@ class QtyAlert extends StatelessWidget {
     String varient = data.varients[varientIndex];
     int qty = qtyController.qty;
     CartService(context: ctx).addToCart(
-        productId: data.id,
-        varient: varient,
-        qty: qty,
-        price: data.price,
-        name: data.name,
-        imageLink: data.imagelist[0]);
+      productId: data.id,
+      varient: varient,
+      qty: qty,
+      price: data.price,
+      name: data.name,
+      imageLink: data.imagelist[0],
+    );
     Navigator.of(context).pop();
   }
 
@@ -145,7 +139,9 @@ class QtyAlert extends StatelessWidget {
     Navigator.of(ctx).pushNamed(
       CheckOutScrn.routename,
       arguments: CheckoutModel(
-        itemlist: [data.toCartModelConverter(varientIndex: varientIndex, quantity: qty)],
+        itemlist: [
+          data.toCartModelConverter(varientIndex: varientIndex, quantity: qty),
+        ],
         totalPrice: (data.price * qtyController.qty),
       ),
     );

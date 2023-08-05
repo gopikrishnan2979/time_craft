@@ -14,10 +14,7 @@ class CartAddmore extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Free delivery in 5 days',
-              style: GoogleFonts.inter(fontSize: 12),
-            ),
+            Text('Free delivery in 5 days', style: GoogleFonts.inter(fontSize: 12)),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -27,17 +24,9 @@ class CartAddmore extends StatelessWidget {
                   backgroundColor: MaterialStatePropertyAll(black)),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.add_shopping_cart,
-                    color: white,
-                    size: 18,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text('Add more',
-                      style:
-                          GoogleFonts.inter(color: Colors.white, fontSize: 14)),
+                  const Icon(Icons.add_shopping_cart, color: white, size: 18),
+                  const SizedBox(width: 8),
+                  Text('Add more', style: GoogleFonts.inter(color: Colors.white, fontSize: 14)),
                 ],
               ),
             )

@@ -5,20 +5,21 @@ import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/textfield_widget.dart';
 
 class TextfieldSignin extends StatelessWidget {
-  const TextfieldSignin(
-      {super.key, required this.emailcontroller, required this.passwordcontroller});
   final TextEditingController emailcontroller;
   final TextEditingController passwordcontroller;
+  const TextfieldSignin({
+    super.key,
+    required this.emailcontroller,
+    required this.passwordcontroller,
+  });
+  
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         sizedboxwithheight(20),
-        Text(
-          'E-mail',
-          style: interbold,
-        ),
+        Text('E-mail', style: interbold),
         sizedboxwithheight(10),
         TextFieldCustom(
           hint: 'Enter your email',
@@ -27,10 +28,7 @@ class TextfieldSignin extends StatelessWidget {
           isemail: true,
         ),
         sizedboxwithheight(20),
-        Text(
-          'Password',
-          style: interbold,
-        ),
+        Text('Password', style: interbold),
         sizedboxwithheight(10),
         ChangeNotifierProvider(
             create: (_) => ObsecureController(),
@@ -56,10 +54,7 @@ class TextfieldSignin extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: () {},
-            child: Text(
-              'Forget Password',
-              style: interbluebold,
-            ),
+            child: Text('Forget Password', style: interbluebold),
           ),
         ),
       ],

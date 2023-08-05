@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/product_varient_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ProductVarientsToLast extends StatelessWidget {
-  const ProductVarientsToLast({
-    super.key,
-    required this.varients,
-  });
+  const ProductVarientsToLast({super.key, required this.varients});
   final List varients;
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,11 +18,13 @@ class ProductVarientsToLast extends StatelessWidget {
           builder: (context, varientController, child) {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  mainAxisExtent: khieght * 0.045,
-                  crossAxisSpacing: khieght * 0.005,
-                  mainAxisSpacing: khieght * 0.005),
+                crossAxisCount: 4,
+                mainAxisExtent: khieght * 0.045,
+                crossAxisSpacing: khieght * 0.005,
+                mainAxisSpacing: khieght * 0.005,
+              ),
               shrinkWrap: true,
+              itemCount: varients.length,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => Center(
                 child: InkWell(
@@ -41,20 +40,15 @@ class ProductVarientsToLast extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Center(
-                      child: Text(
-                        varients[index],
-                        style: interwhite,
-                      ),
+                      child: Text(varients[index], style: interwhite),
                     ),
                   ),
                 ),
               ),
-              itemCount: varients.length,
             );
           },
         ),
         sizedboxwithheight(khieght * 0.02),
-        
       ],
     );
   }
@@ -62,20 +56,7 @@ class ProductVarientsToLast extends StatelessWidget {
   Widget _titletext(String text) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       sizedboxwithheight(khieght * 0.01),
-      Text(
-        text,
-        style: inter,
-      )
-    ]);
-  }
-
-  Widget _detailtext(String text, bool isblack) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      sizedboxwithheight(khieght * 0.01),
-      Text(
-        text,
-        style: GoogleFonts.inter(fontSize: 12, color: isblack ? black : Colors.grey),
-      )
+      Text(text, style: inter),
     ]);
   }
 }

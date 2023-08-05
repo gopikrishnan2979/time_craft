@@ -9,20 +9,21 @@ import 'package:time_craft/view/common/widgets/item_card.dart';
 import 'package:time_craft/view/screens/product/product_details.dart';
 
 class SearchFoundGrid extends StatelessWidget {
-  SearchFoundGrid({super.key});
   final CollectionReference allproduct = FirebaseFirestore.instance.collection('product');
+  SearchFoundGrid({super.key});
+
   @override
   Widget build(BuildContext context) {
     SearchProvider searchValue = Provider.of<SearchProvider>(context, listen: false);
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisExtent: khieght * 0.32,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5),
+        crossAxisCount: 2,
+        mainAxisExtent: khieght * 0.32,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+      ),
       padding: const EdgeInsets.all(5),
+      itemCount: searchValue.searchlist.length,
       itemBuilder: (context, index) {
         var data = searchValue.searchlist[index];
         return InkWell(
@@ -40,7 +41,6 @@ class SearchFoundGrid extends StatelessWidget {
           ),
         );
       },
-      itemCount: searchValue.searchlist.length,
     );
   }
 }

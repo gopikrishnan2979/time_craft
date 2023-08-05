@@ -9,28 +9,21 @@ class ScrollingPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: kwidth * 0.05),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // sizedboxwithheight(khieght * 0.01),
-            Text('Order list', style: interbold),
-            sizedboxwithheight(khieght * 0.01),
-            Expanded(
+        child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: kwidth * 0.05),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Order list', style: interbold),
+          sizedboxwithheight(khieght * 0.01),
+          Expanded(
               child: ListView.separated(
-                // shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => CheckoutItemTile(
-                  data: datalist[index],
-                ),
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: datalist.length,
-              ),
-            )
-          ],
-        ),
+            itemBuilder: (context, index) => CheckoutItemTile(data: datalist[index]),
+            separatorBuilder: (context, index) => const Divider(),
+            itemCount: datalist.length,
+          )),
+        ],
       ),
-    );
+    ));
   }
 }

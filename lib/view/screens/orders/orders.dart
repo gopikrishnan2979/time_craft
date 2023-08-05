@@ -24,26 +24,26 @@ class MyOrders extends StatelessWidget {
           var orderIdList = orderController.orderIdlist;
           int cartCount = 0;
           return ListView.separated(
-              itemBuilder: (context, index) {
-                OrderModel data = orderlist[index];
-                var cartlist = data.cartlist!;
-                bool isCartOrder = cartlist.length > 1;
-                return InkWell(
-                  onTap: () {
-                    final arg =
-                        OrderDetailsArg(order: orderlist[index], orderId: orderIdList[index]);
-                    Navigator.of(context).pushNamed(OrderDetails.routename, arguments: arg);
-                  },
-                  child: OrderTile(
-                    image: isCartOrder ? cartImage : cartlist[0].imageLink!,
-                    orderId: orderIdList[index],
-                    orderStatus: orderlist[index].orderStatus!,
-                    title: isCartOrder ? 'CartOrder${++cartCount}' : '${cartlist[0].name}',
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => const Divider(),
-              itemCount: orderlist.length);
+            itemBuilder: (context, index) {
+              OrderModel data = orderlist[index];
+              var cartlist = data.cartlist!;
+              bool isCartOrder = cartlist.length > 1;
+              return InkWell(
+                onTap: () {
+                  final arg = OrderDetailsArg(order: orderlist[index], orderId: orderIdList[index]);
+                  Navigator.of(context).pushNamed(OrderDetails.routename, arguments: arg);
+                },
+                child: OrderTile(
+                  image: isCartOrder ? cartImage : cartlist[0].imageLink!,
+                  orderId: orderIdList[index],
+                  orderStatus: orderlist[index].orderStatus!,
+                  title: isCartOrder ? 'CartOrder${++cartCount}' : '${cartlist[0].name}',
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => const Divider(),
+            itemCount: orderlist.length,
+          );
         }),
       ),
     );

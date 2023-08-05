@@ -8,21 +8,16 @@ class SearchNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: khieght * 0.5,
+      height: khieght * 0.7,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Search for awesome products',
-            style: GoogleFonts.inter(color: black, fontSize: 17),
-          ),
+          Text('Search for awesome products', style: GoogleFonts.inter(color: black, fontSize: 17)),
           SizedBox(
-              height: khieght * 0.3,
-              width: double.infinity,
-              child: Image.asset(
-                'assets/images/logo.png',
-                fit: BoxFit.fitWidth,
-              )),
+            height: khieght * 0.3,
+            width: double.infinity,
+            child: Image.asset('assets/images/logo.png', fit: BoxFit.fitWidth),
+          ),
         ],
       ),
     );
