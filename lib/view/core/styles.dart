@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 const Color white = Colors.white;
 const Color black = Colors.black;
-const Color addingColor = Color.fromARGB(122, 255, 30, 30);
-const Color removingColor = Color.fromARGB(121, 30, 255, 113);
+const Color addingColor = Color.fromARGB(121, 30, 255, 113);
+const Color removingColor = Color.fromARGB(122, 255, 30, 30);
 
 // size of the screen initialized during the entering
 

@@ -11,7 +11,7 @@ class CarouselHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseInstanceModel.banners.snapshots(),
+        stream: FirebaseInstances.banners.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.data == null) {
             return const Loading();

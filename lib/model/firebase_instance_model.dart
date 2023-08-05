@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseInstanceModel {
+class FirebaseInstances {
   /// Firebase firestore instance
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -14,11 +14,12 @@ class FirebaseInstanceModel {
   static final CollectionReference user = firestore.collection('users');
   static final CollectionReference cart = firestore.collection('cart');
   static final CollectionReference wishlist = firestore.collection('wishlist');
-  static final CollectionReference address =
-      user.doc(FirebaseInstanceModel.uid).collection('address');
-  static final CollectionReference userOrder =
-      user.doc(FirebaseInstanceModel.uid).collection('orders');
+  static final CollectionReference address = user.doc(FirebaseInstances.uid).collection('address');
+  static final CollectionReference userOrder = user.doc(FirebaseInstances.uid).collection('orders');
 
   /// User id
-  static late String uid;
+  static String? uid;
+  static String? userName;
+  static String? userPhone;
+  static String? userEmail;
 }

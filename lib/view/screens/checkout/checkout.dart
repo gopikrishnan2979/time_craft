@@ -76,10 +76,11 @@ class CheckOutScrn extends StatelessWidget {
         OrderModel orderData = OrderModel(
             cartlist: checkoutData.itemlist,
             paymentId: 'COD',
-            discription: '${FirebaseInstanceModel.uid}Order',
+            phone: FirebaseInstances.userPhone,
+            discription: '${FirebaseInstances.uid}Order',
             address: addControl.address!,
             israzorpay: false,
-            userid: FirebaseInstanceModel.uid,
+            userid: FirebaseInstances.uid,
             totalPrice: checkoutData.totalPrice,
             orderPlacedDate: date,
             orderStatus: 'Order Placed');

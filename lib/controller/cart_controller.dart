@@ -13,8 +13,8 @@ class CartController extends ChangeNotifier {
   //fetching data from cart databases
   getCartList() async {
     try {
-      List data = await FirebaseInstanceModel.cart
-          .doc(FirebaseInstanceModel.uid)
+      List data = await FirebaseInstances.cart
+          .doc(FirebaseInstances.uid)
           .collection('usercart')
           .get()
           .then((value) => value.docs);

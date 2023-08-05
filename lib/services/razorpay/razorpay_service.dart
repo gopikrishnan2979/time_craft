@@ -33,8 +33,8 @@ class RazorPayService {
 //paying the order
   pay({required int totalPrice, required List<CartModel> cartList, required AddressModel address}) {
     String uniqueId = createUuid();
-    String paymentId = FirebaseInstanceModel.uid + uniqueId;
-    String orderDiscription = '${FirebaseInstanceModel.uid}Order';
+    String paymentId = FirebaseInstances.uid! + uniqueId;
+    String orderDiscription = '${FirebaseInstances.uid}Order';
     Map<String, dynamic> options = {
       'key': _razorpaykey,
       'amount': totalPrice * 100,
@@ -43,42 +43,44 @@ class RazorPayService {
       'description': orderDiscription,
       'retry': {'enabled': true, 'max_count': 1},
       'send_sms_hash': true,
-      'prefill': {'contact': '7306062899', 'email': 'gopikrishnan2979@gmail.com'},
+      'prefill': {'contact': FirebaseInstances.userPhone, 'email': 'gopikrishnan2979@gmail.com'},
       'external': {
         'wallets': ['paytm']
       }
     };
     String date = DateTime.now().toString();
     _order = OrderModel(
-        cartlist: cartList,
-        paymentId: paymentId,
-        discription: orderDiscription,
-        israzorpay: true,
-        userid: FirebaseInstanceModel.uid,
-        address: address,
-        orderStatus: 'Order Placed',
-        orderPlacedDate: date,
-        totalPrice: totalPrice);
+      cartlist: cartList,
+      paymentId: paymentId,
+      discription: orderDiscription,
+      israzorpay: true,
+      userid: FirebaseInstances.uid,
+      address: address,
+      orderStatus: 'Order Placed',
+      orderPlacedDate: date,
+      totalPrice: totalPrice,
+      phone: FirebaseInstances.userPhone,
+    );
     _razorpay.open(options);
   }
 
   //Payment is success
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        snackBarDesign(text: 'Payment Successful',color: addingColor));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBarDesign(text: 'Payment Successful', color: addingColor));
 
     OrderServices(_order, context: context).addOrder();
   }
 
   //Payment failed to proceed;
   void _handlePaymentError(PaymentFailureResponse response) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        snackBarDesign(text: 'Payment failed',color: removingColor));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBarDesign(text: 'Payment failed', color: removingColor));
   }
 
   //wallet payment selected
   void _handleExternalWallet(ExternalWalletResponse response) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        snackBarDesign(text: 'Wallet selected',color: addingColor));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBarDesign(text: 'Wallet selected', color: addingColor));
   }
 }

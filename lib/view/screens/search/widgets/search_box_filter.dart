@@ -23,7 +23,7 @@ class SearchBoxWithFilter extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
             child: StreamBuilder(
-              stream: FirebaseInstanceModel.brands.snapshots(),
+              stream: FirebaseInstances.brands.snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
                   return const Loading();

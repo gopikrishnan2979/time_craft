@@ -10,8 +10,8 @@ class WishlistService {
   final BuildContext context;
   Future<void> addToWishlist(String productId) async {
     try {
-      String uid = FirebaseInstanceModel.uid;
-      await FirebaseInstanceModel.wishlist
+      String uid = FirebaseInstances.uid!;
+      await FirebaseInstances.wishlist
           .doc(uid)
           .collection('userwishlist')
           .doc(productId)
@@ -28,8 +28,8 @@ class WishlistService {
 
   Future<void> removeFromWishlist(String productId) async {
     try {
-      String uid = FirebaseInstanceModel.uid;
-      await FirebaseInstanceModel.wishlist
+      String uid = FirebaseInstances.uid!;
+      await FirebaseInstances.wishlist
           .doc(uid)
           .collection('userwishlist')
           .doc(productId)

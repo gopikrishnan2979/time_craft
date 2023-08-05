@@ -10,10 +10,9 @@ class OrderServices {
   OrderServices(this._orderData, {required this.context});
   addOrder() async {
     try {
-      await FirebaseInstanceModel.order.add(_orderData.toMap()).then((value) async {
-        await FirebaseInstanceModel.userOrder.doc(value.id).set({'orderStatus': 'Order Placed'});
+      await FirebaseInstances.order.add(_orderData.toMap()).then((value) async {
+        await FirebaseInstances.userOrder.doc(value.id).set({'orderStatus': 'Order Placed'});
         if (context.mounted) Navigator.of(context).pushReplacementNamed(OrderPlaced.routename);
-        
       });
     } on FirebaseException catch (e) {
       alertshower(e.message);

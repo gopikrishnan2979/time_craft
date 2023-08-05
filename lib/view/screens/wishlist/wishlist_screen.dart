@@ -37,7 +37,7 @@ class WishlistScreen extends StatelessWidget {
             itemCount: wishlistCon.wishlist.length,
             itemBuilder: (context, index) {
               return StreamBuilder(
-                stream: FirebaseInstanceModel.products.doc(wishlistCon.wishlist[index]).snapshots(),
+                stream: FirebaseInstances.products.doc(wishlistCon.wishlist[index]).snapshots(),
                 builder: (context, itemsnapshot) {
                   if (itemsnapshot.data == null) {
                     return const Loading();

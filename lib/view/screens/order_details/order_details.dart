@@ -44,34 +44,28 @@ class OrderDetails extends StatelessWidget {
           sizedboxwithheight(khieght * 0.008),
           Text('Payment Method: $payment', style: inter14bold),
           sizedboxwithheight(khieght * 0.008),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Delivering Address :', style: inter14bold),
-              SizedBox(
-                width: kwidth * 0.5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('${address.localAddress},', style: inter14bold),
-                    Text(
-                      '${address.city},${address.district},',
-                      style: inter14bold,
-                    ),
-                    Text('${address.state},', style: inter14bold),
-                    Text('Pin:${address.pincode}', style: inter14bold),
-                    address.landmark != 'no landmark'
-                        ? Text(
-                            'landmark:${address.landmark}',
-                            style: inter14bold,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        : const SizedBox(),
-                  ],
+          Text('Delivering Address :', style: inter14bold),
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${address.localAddress},', style: inter14bold),
+                Text(
+                  '${address.city},${address.district},',
+                  style: inter14bold,
                 ),
-              )
-            ],
+                Text('${address.state},', style: inter14bold),
+                Text('Pin:${address.pincode}', style: inter14bold),
+                Text('Phone No.: ${orderDetails.phone}', style: inter14bold),
+                address.landmark != 'no landmark'
+                    ? Text(
+                        'landmark:${address.landmark}',
+                        style: inter14bold,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    : const SizedBox(),
+              ],
+            ),
           ),
           sizedboxwithheight(khieght * 0.05),
           OrderTrackerZen(

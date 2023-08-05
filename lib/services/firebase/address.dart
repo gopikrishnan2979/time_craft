@@ -9,7 +9,7 @@ class AddressService {
   AddressService({required this.context});
   addAddress({required AddressModel address}) async {
     try {
-      await FirebaseInstanceModel.address.add({
+      await FirebaseInstances.address.add({
         'localAddress': address.localAddress,
         'city': address.city,
         'district': address.district,
@@ -21,7 +21,7 @@ class AddressService {
             .showSnackBar(snackBarDesign(text: 'Address added successfully'));
       });
     } on FirebaseException catch (e) {
-      alertshower(context: context,text:  e.message);
+      alertshower(context: context, text: e.message);
     }
   }
 }

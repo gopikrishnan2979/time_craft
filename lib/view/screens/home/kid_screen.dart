@@ -16,7 +16,7 @@ class KidsScreen extends StatelessWidget {
     return Stack(
       children: [
         StreamBuilder(
-          stream: FirebaseInstanceModel.products.snapshots(),
+          stream: FirebaseInstances.products.snapshots(),
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return const Loading();

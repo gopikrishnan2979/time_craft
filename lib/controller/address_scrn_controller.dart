@@ -7,7 +7,7 @@ class AddressScrnController extends ChangeNotifier {
   int? selectedIndex;
   getAddressList() async {
     try {
-      List data = await FirebaseInstanceModel.address.get().then((value) => value.docs);
+      List data = await FirebaseInstances.address.get().then((value) => value.docs);
       addressList.clear();
       for (var element in data) {
         AddressModel address = AddressModel.fromData(data: element);

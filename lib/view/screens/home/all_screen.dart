@@ -23,7 +23,7 @@ class AllScreens extends StatelessWidget {
             children: [
               const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: CarouselHome()),
               StreamBuilder(
-                stream: FirebaseInstanceModel.products.snapshots(),
+                stream: FirebaseInstances.products.snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
                     return SizedBox(height: khieght * 0.5, child: const Loading());

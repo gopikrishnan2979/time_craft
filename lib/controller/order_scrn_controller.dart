@@ -8,10 +8,10 @@ class OrderScrnController extends ChangeNotifier {
   getOrderIds() async {
     try {
       cartlist.clear();
-      await FirebaseInstanceModel.userOrder.get().then((value) async {
+      await FirebaseInstances.userOrder.get().then((value) async {
         orderIdlist = value.docs.map((doc) => doc.id).toList();
         for (String orderId in orderIdlist) {
-          await FirebaseInstanceModel.order.doc(orderId).get().then((value) {
+          await FirebaseInstances.order.doc(orderId).get().then((value) {
             cartlist.add(OrderModel.fromMap(value));
           });
         }

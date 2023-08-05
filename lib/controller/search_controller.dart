@@ -39,9 +39,8 @@ class SearchProvider extends ChangeNotifier {
     _debouncer.run(action: () async {
       if (text != '') {
         try {
-          searchlist = await FirebaseInstanceModel.products
-              .get()
-              .then((value) => value.docs.where((element) {
+          searchlist =
+              await FirebaseInstances.products.get().then((value) => value.docs.where((element) {
                     log(element['brand']);
                     var name = element['name'] as String;
                     var brandId = element['brand'] as String;

@@ -23,7 +23,7 @@ class MyProfile extends StatelessWidget {
           child: Padding(
             padding: MediaQuery.of(context).viewInsets,
             child: StreamBuilder(
-              stream: FirebaseInstanceModel.user.doc(FirebaseInstanceModel.uid).snapshots(),
+              stream: FirebaseInstances.user.doc(FirebaseInstances.uid).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
                   return const Loading();

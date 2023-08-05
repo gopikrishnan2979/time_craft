@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/obsecure_controller.dart';
+import 'package:time_craft/services/firebase/auth.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/textfield_widget.dart';
 
@@ -12,7 +13,7 @@ class TextfieldSignin extends StatelessWidget {
     required this.emailcontroller,
     required this.passwordcontroller,
   });
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -53,7 +54,9 @@ class TextfieldSignin extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Auth(context: context).resetPassword(email: emailcontroller.text);
+            },
             child: Text('Forget Password', style: interbluebold),
           ),
         ),

@@ -4,7 +4,6 @@ import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 
-
 class CartService {
   BuildContext context;
   CartService({required this.context});
@@ -16,8 +15,8 @@ class CartService {
       required String name,
       required String imageLink}) async {
     try {
-      FirebaseInstanceModel.cart
-          .doc(FirebaseInstanceModel.uid)
+      FirebaseInstances.cart
+          .doc(FirebaseInstances.uid)
           .collection('usercart')
           .doc('$productId$varient')
           .set({
@@ -28,8 +27,8 @@ class CartService {
         'price': price,
         'imageLink': imageLink
       }, SetOptions(merge: true)).then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(
-            text: 'Item Added To Cart', color: addingColor));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(snackBarDesign(text: 'Item Added To Cart', color: addingColor));
       });
     } on FirebaseException catch (e) {
       alertshower(text: e.message ?? '', context: context);
@@ -42,8 +41,8 @@ class CartService {
       required String varient,
       required int price}) {
     try {
-      FirebaseInstanceModel.cart
-          .doc(FirebaseInstanceModel.uid)
+      FirebaseInstances.cart
+          .doc(FirebaseInstances.uid)
           .collection('usercart')
           .doc(productId + varient)
           .set({
@@ -56,14 +55,14 @@ class CartService {
 
   deleteCartItem({required String cartProductId}) async {
     try {
-      await FirebaseInstanceModel.cart
-          .doc(FirebaseInstanceModel.uid)
+      await FirebaseInstances.cart
+          .doc(FirebaseInstances.uid)
           .collection('usercart')
           .doc(cartProductId)
           .delete()
           .then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(
-            text: 'Item removed from Cart', color: removingColor));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(snackBarDesign(text: 'Item removed from Cart', color: removingColor));
       });
     } on FirebaseException catch (e) {
       alertshower(text: e.message, context: context);

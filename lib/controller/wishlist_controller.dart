@@ -7,8 +7,8 @@ class WishlistController extends ChangeNotifier {
 
   getwishlist() async {
     try {
-      wishlist = await FirebaseInstanceModel.wishlist
-          .doc(FirebaseInstanceModel.uid)
+      wishlist = await FirebaseInstances.wishlist
+          .doc(FirebaseInstances.uid)
           .collection('userwishlist')
           .get()
           .then((value) => value.docs.map((element) => element.id).toList());

@@ -24,7 +24,7 @@ class HomeDrawer extends StatelessWidget {
           children: [
             DrawerHeader(
               child: StreamBuilder(
-                stream: FirebaseInstanceModel.user.doc(FirebaseInstanceModel.uid).snapshots(),
+                stream: FirebaseInstances.user.doc(FirebaseInstances.uid).snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.data == null) {
                     return const Loading();

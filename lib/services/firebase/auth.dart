@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:time_craft/controller/userdata_getter.dart';
 import 'package:time_craft/controller/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/notification_widgets.dart';
@@ -15,6 +16,7 @@ class Auth {
   final BuildContext context;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   createNewUserWithEmailandPassword({
     required String email,
     required String password,
@@ -24,8 +26,9 @@ class Auth {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
         User? user = value.user;
-        FirebaseInstanceModel.uid = user!.uid;
-        FirebaseInstanceModel.user.doc(user.uid).set({
+        FirebaseInstances.uid = user!.uid;
+        collectUserData(context, uid: user.uid);
+        FirebaseInstances.user.doc(user.uid).set({
           'name': username,
           'email': email,
           'phone': phone,
@@ -46,7 +49,8 @@ class Auth {
   signInexistingWithEmailAndPassword({required String email, required String password}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
-        FirebaseInstanceModel.uid = value.user!.uid;
+        FirebaseInstances.uid = value.user!.uid;
+        collectUserData(context, uid: value.user!.uid);
         await Provider.of<WishlistController>(context, listen: false).getwishlist();
         Navigator.of(context).pop();
         Navigator.of(context).pushReplacementNamed(Home.routename);
@@ -71,8 +75,9 @@ class Auth {
       );
       await _auth.signInWithCredential(credential).then((value) async {
         User? user = value.user;
-        FirebaseInstanceModel.uid = user!.uid;
-        FirebaseInstanceModel.user.doc(user.uid).set({
+        FirebaseInstances.uid = user!.uid;
+        collectUserData(context, uid: user.uid);
+        FirebaseInstances.user.doc(user.uid).set({
           'name': user.displayName,
           'email': user.email,
           'phone': user.phoneNumber,
@@ -92,12 +97,28 @@ class Auth {
       await _auth.signOut().then((value) {
         Navigator.popUntil(context, (route) => false);
         Navigator.of(context).pushNamed(SignInPage.routename);
+        ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(text: 'Logged out'));
+        FirebaseInstances.uid;
+        FirebaseInstances.userEmail = null;
+        FirebaseInstances.userName = null;
+        FirebaseInstances.userPhone = null;
       });
     } on FirebaseException catch (e) {
       Navigator.of(context).pop();
       alertshower(context: context, text: e.message);
     } catch (e) {
       alertshower(context: context, text: e.toString());
+    }
+  }
+
+  resetPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email).then((value) {
+        alertshower(text: 'Verification email has been send', context: context);
+      });
+      return;
+    } on FirebaseException catch (e) {
+      alertshower(text: e.message, context: context);
     }
   }
 }

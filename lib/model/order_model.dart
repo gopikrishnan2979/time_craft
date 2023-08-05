@@ -2,6 +2,7 @@ import 'package:time_craft/model/address_model.dart';
 import 'package:time_craft/model/cart_model.dart';
 
 class OrderModel {
+  
   List<CartModel>? cartlist;
   int? totalPrice;
   String? paymentId;
@@ -13,7 +14,9 @@ class OrderModel {
   String? shippingDate;
   String? outForDeliveryDate;
   String? deliveryDate;
+  String? phone;
   AddressModel? address;
+
   OrderModel({
     required this.cartlist,
     required this.paymentId,
@@ -24,6 +27,7 @@ class OrderModel {
     required this.totalPrice,
     required this.orderStatus,
     required this.orderPlacedDate,
+    required this.phone,
   }) {
     _orderStatusSetter();
   }
@@ -46,7 +50,7 @@ class OrderModel {
     shippingDate = data['shippingDate'];
     outForDeliveryDate = data['outForDeliveryDate'];
     deliveryDate = data['deliveryDate'];
-
+    phone = data['phone'];
     Map cartData = data['items'] as Map;
     cartlist = [];
     for (var items in cartData.values) {
@@ -75,6 +79,7 @@ class OrderModel {
       'shippingDate': shippingDate,
       'outForDeliveryDate': outForDeliveryDate,
       'deliveryDate': deliveryDate,
+      'phone': phone,
     };
   }
 }

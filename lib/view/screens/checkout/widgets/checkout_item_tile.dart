@@ -34,7 +34,8 @@ class CheckoutItemTile extends StatelessWidget {
               children: [
                 Text(data.name!, style: inter),
                 Text("₹${data.price}/qty", style: interbold),
-                Text(data.varient!, style: inter)
+                Text(data.varient!, style: inter),
+                Text('Total : ${data.totalprice}', style: interbold),
               ],
             ),
           ),

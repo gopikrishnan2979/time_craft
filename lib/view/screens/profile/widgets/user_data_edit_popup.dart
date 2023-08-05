@@ -9,11 +9,17 @@ import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/address/widgets/address_adding.dart';
 
 class UserDataEditor extends StatelessWidget {
-  const UserDataEditor(
-      {super.key, this.isname = false, required this.initialText, required this.ctx});
   final bool isname;
   final String initialText;
   final BuildContext ctx;
+  final bool isFromHome;
+  const UserDataEditor({
+    super.key,
+    this.isname = false,
+    required this.initialText,
+    required this.ctx,
+    this.isFromHome = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +37,13 @@ class UserDataEditor extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel')),
+        isFromHome
+            ? const SizedBox()
+            : TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel')),
         TextButton(
             onPressed: () {
               change(value: controller.text.trim(), context: context);
@@ -59,10 +67,11 @@ class UserDataEditor extends StatelessWidget {
   usernameChange(
       {required String value, required bool isname, required BuildContext context}) async {
     Map<String, dynamic> data = isname ? {'name': value} : {'phone': value};
-    await FirebaseInstanceModel.user
-        .doc(FirebaseInstanceModel.uid)
+    await FirebaseInstances.user
+        .doc(FirebaseInstances.uid)
         .set(data, SetOptions(merge: true))
-        .then((value) {
+        .then((_) {
+      
       ScaffoldMessenger.of(context)
           .showSnackBar(snackBarDesign(text: 'Successfully changed', color: addingColor));
     });
