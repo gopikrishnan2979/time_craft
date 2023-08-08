@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/product_varient_controller.dart';
+import 'package:time_craft/controller/product_controllers/product_varient_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class ProductVarientsToLast extends StatelessWidget {

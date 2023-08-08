@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/checkout_address_controller.dart';
+import 'package:time_craft/controller/checkout_controllers/checkout_address_controller.dart';
 import 'package:time_craft/model/address_model.dart';
 import 'package:time_craft/model/arg_models/address_scrn_arg.dart';
 import 'package:time_craft/view/core/styles.dart';

@@ -1,3 +1,5 @@
+// validation 
+
 class Validation {
   validation(
       {required String? value,
@@ -23,6 +25,7 @@ class Validation {
     }
   }
 
+//name validation
   String? namevalidator(String value) {
     if (value == '') {
       return 'Name is required';
@@ -34,6 +37,7 @@ class Validation {
     return null;
   }
 
+//email validation
   String? emailvalidator(String value) {
     if (value == '') {
       return 'Email is required';
@@ -46,6 +50,8 @@ class Validation {
     }
   }
 
+
+//password validation 
   String? passwordvalidator(String value) {
     if (value == '') {
       return 'Password cannot be empty';
@@ -53,6 +59,7 @@ class Validation {
     return value.length > 5 ? null : 'Password must contain minimum 6 characters';
   }
 
+//Phone number validation
   String? phonevalidator(String value) {
     if (value == '') {
       return 'Phone number is required';
@@ -67,6 +74,8 @@ class Validation {
     return null;
   }
 
+
+//confirming the password 
   String? confirmPasswordValidation(String password, String value) {
     if (value == '') {
       return 'Password cannot be empty';
@@ -77,6 +86,7 @@ class Validation {
     return null;
   }
 
+//validation of the addresses
   String? addressValidation({required bool isOptional, required String? value}) {
     if (!isOptional) {
       if (value == null || value.trim() == '') {

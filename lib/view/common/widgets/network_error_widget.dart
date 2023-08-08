@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/network_connectivity.dart';
+import 'package:time_craft/controller/network_controllers/network_connectivity.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class NetworkErrorWidget extends StatelessWidget {

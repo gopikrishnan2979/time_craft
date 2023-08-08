@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/user_editor_controller.dart';
+import 'package:time_craft/controller/userdata_controllers/user_editor_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/screens/home/all_screen.dart';
 import 'package:time_craft/view/screens/home/kid_screen.dart';

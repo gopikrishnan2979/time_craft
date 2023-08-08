@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 
+//collect user data from the database as the user enters
 Future<void> collectUserData(BuildContext context, {required String uid}) async {
   try {
     await FirebaseInstances.user.doc(uid).get().then((value) {

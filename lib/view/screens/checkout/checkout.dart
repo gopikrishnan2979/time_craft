@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/checkout_address_controller.dart';
-import 'package:time_craft/controller/payment_selector.dart';
+import 'package:time_craft/controller/checkout_controllers/checkout_address_controller.dart';
+import 'package:time_craft/controller/checkout_controllers/payment_selector.dart';
 import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/model/order_model.dart';

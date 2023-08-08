@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/product_qty_controller.dart';
-import 'package:time_craft/controller/product_varient_controller.dart';
+import 'package:time_craft/controller/product_controllers/product_qty_controller.dart';
+import 'package:time_craft/controller/product_controllers/product_varient_controller.dart';
 import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/services/firebase/cart.dart';

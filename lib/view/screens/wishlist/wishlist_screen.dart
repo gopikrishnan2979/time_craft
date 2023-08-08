@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/wishlist_controller.dart';
+import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/model/arg_models/product_scrn_arg.dart';
 import 'package:time_craft/model/product_model.dart';

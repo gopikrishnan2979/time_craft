@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:time_craft/model/address_model.dart';
 import 'package:time_craft/services/firebase/address.dart';
-
+// a controller class which is used to control the data in the textfield of the address class so that it can be stateless
 class AddressTextController extends ChangeNotifier {
+
   final TextEditingController localAddressCon = TextEditingController();
 
   final TextEditingController cityController = TextEditingController();
@@ -15,6 +16,7 @@ class AddressTextController extends ChangeNotifier {
 
   final TextEditingController landmark = TextEditingController();
 
+// this function helps to post the newly entered address to the database as the user is saved 
   addressAdding(BuildContext context) async{
     AddressModel address = AddressModel(
         localAddress: localAddressCon.text.trim(),

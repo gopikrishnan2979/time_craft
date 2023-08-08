@@ -4,19 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/userdata_getter.dart';
-import 'package:time_craft/controller/wishlist_controller.dart';
+import 'package:time_craft/controller/userdata_controllers/userdata_getter.dart';
+import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/screens/home/home.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 
+//Firebase auth service
 class Auth {
   Auth({required this.context});
   final BuildContext context;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+// --------------------------create new user with email
   createNewUserWithEmailandPassword({
     required String email,
     required String password,
@@ -46,6 +48,7 @@ class Auth {
     }
   }
 
+//--------------------------signing in to a existing account with email
   signInexistingWithEmailAndPassword({required String email, required String password}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
@@ -64,6 +67,7 @@ class Auth {
     }
   }
 
+//-------------------------Sign in using google credentials
   signInUsingGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
@@ -92,6 +96,7 @@ class Auth {
     }
   }
 
+// ---------------------------------signout fromt the app
   signOut() async {
     try {
       await _auth.signOut().then((value) {
@@ -110,6 +115,8 @@ class Auth {
       alertshower(context: context, text: e.toString());
     }
   }
+
+//---------------password reseting feature for reset the password as the user forget the password
 
   resetPassword({required String email}) async {
     try {

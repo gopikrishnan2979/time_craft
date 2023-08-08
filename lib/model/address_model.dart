@@ -1,3 +1,4 @@
+
 class AddressModel {
   String localAddress;
   String city;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/user_editor_controller.dart';
+import 'package:time_craft/controller/userdata_controllers/user_editor_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/profile/widgets/user_data_edit_popup.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/cart_controller.dart';
+import 'package:time_craft/controller/cart_controllers/cart_controller.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/cart/widgets/cart_tile.dart';
 

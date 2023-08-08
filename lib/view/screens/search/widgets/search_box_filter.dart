@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_craft/controller/search_controller.dart';
-import 'package:time_craft/controller/search_visibility_controller.dart';
+import 'package:time_craft/controller/search_controllers/search_controller.dart';
+import 'package:time_craft/controller/search_controllers/filter_visibility_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/common/widgets/loading.dart';
 import 'package:time_craft/view/core/styles.dart';
@@ -56,7 +56,6 @@ class SearchBoxWithFilter extends StatelessWidget {
                             Provider.of<SearchProvider>(context, listen: false).removeFilter();
                           }
                           value.change(
-                            gridcount: snapshot.data!.docs.length ~/ 3,
                             value: !value.isexpanded,
                           );
                         },

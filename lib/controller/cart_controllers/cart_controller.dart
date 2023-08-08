@@ -6,11 +6,11 @@ import 'package:time_craft/services/firebase/cart.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 class CartController extends ChangeNotifier {
-  //Cart list
+  //-------------------Cart list
   List<CartModel> cartList = [];
   int totalCartPrice = 0;
 
-  //fetching data from cart databases
+  //--------------------------fetching data from cart databases
   getCartList() async {
     try {
       List data = await FirebaseInstances.cart
@@ -31,7 +31,7 @@ class CartController extends ChangeNotifier {
     }
   }
 
-  //cart product quantity increasing
+  //------------------------------------cart product quantity increasing
   productQtyInc({required int index, required BuildContext context}) {
     CartModel data = cartList[index];
     data.quantity = data.quantity! + 1;
@@ -45,7 +45,7 @@ class CartController extends ChangeNotifier {
         price: data.price!);
   }
 
-  // cart product quantity decreasing
+  // ------------------------------------cart product quantity decreasing
   productQtyDec({required int index, required BuildContext context}) {
     CartModel data = cartList[index];
     if (data.quantity! > 1) {
@@ -61,7 +61,7 @@ class CartController extends ChangeNotifier {
     }
   }
 
-  //deleting product from cart
+  //--------------------------------------deleting product from cart
   productDelete({required int index, required BuildContext context}) {
     CartModel data = cartList[index];
     CartService(context: context).deleteCartItem(cartProductId: data.cartProductId!);
@@ -70,7 +70,7 @@ class CartController extends ChangeNotifier {
     notifyListeners();
   }
 
-  //deletion confirmation popUp
+  //--------------------------------------deletion confirmation popUp
   productDeleteConfirmation({required BuildContext context, required int index}) {
     showDialog(
       context: context,
