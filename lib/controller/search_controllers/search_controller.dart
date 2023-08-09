@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:time_craft/controller/debouncer/debouncer.dart';
@@ -35,7 +33,6 @@ class SearchProvider extends ChangeNotifier {
     isfilterapplied = false;
     selectedIndex = 100;
     selectedId = '';
-    log(selectedId);
     notifyListeners();
     searchValue();
   }
@@ -48,7 +45,6 @@ class SearchProvider extends ChangeNotifier {
           try {
             searchlist =
                 await FirebaseInstances.products.get().then((value) => value.docs.where((element) {
-                      log(element['brand']);
                       var name = element['name'] as String;
                       var brandId = element['brand'] as String;
                       if (isfilterapplied) {
@@ -64,7 +60,6 @@ class SearchProvider extends ChangeNotifier {
                       return false;
                     }).toList());
           } catch (_) {
-            log(_.toString());
             return false;
           }
         } else {

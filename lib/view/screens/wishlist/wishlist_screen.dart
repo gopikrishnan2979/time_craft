@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
@@ -45,7 +44,6 @@ class WishlistScreen extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       var data = itemsnapshot.data!;
-                      log('${wishlistCon.wishlist}');
                       Navigator.of(context).pushNamed(
                         ProductDetails.routename,
                         arguments: ProductScrnArgument(
