@@ -24,7 +24,7 @@ class PrivacyPolicy extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                "Gopikrishnan Nair S built the AURA app as a Free app. This SERVICE is provided by Gopikrishnan Nair S at no cost and is intended for use as is.",
+                "Gopikrishnan Nair S built the Time Craft app as a Free app. This SERVICE is provided by Gopikrishnan Nair S at no cost and is intended for use as is.",
                 style: termstyle(),
               ),
               heightedbox(),
@@ -39,7 +39,7 @@ class PrivacyPolicy extends StatelessWidget {
               ),
               heightedbox(),
               Text(
-                "The terms used in this Privacy policy have the same meaning as in our Terms and Conditions,Which are accessible at AURA unless otherwise defined in this Privacy Policy.",
+                "The terms used in this Privacy policy have the same meaning as in our Terms and Conditions,Which are accessible at Time Craft unless otherwise defined in this Privacy Policy.",
                 style: termstyle(),
               ),
               heightedbox(),

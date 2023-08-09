@@ -32,7 +32,7 @@ class TermsAndCondition extends StatelessWidget {
               ),
               heightedbox(),
               Text(
-                "The Aura app stores and processes personal data that you have provided to us,to provide my Service . it's your responsibility to keep your phone and access to the app secure . We therefore recommend that you do not jailbreak or root your phone, which is the process of removing softwere restrictions and limitaitons imposed by the official operating system of your device . It could make your phone vulnerable to malware/viruses, malcious programs, compromise your phone's security features and it could mean that the Aura app won't work properly or at all.",
+                "The Time Craft app stores and processes personal data that you have provided to us,to provide my Service . it's your responsibility to keep your phone and access to the app secure . We therefore recommend that you do not jailbreak or root your phone, which is the process of removing softwere restrictions and limitaitons imposed by the official operating system of your device . It could make your phone vulnerable to malware/viruses, malcious programs, compromise your phone's security features and it could mean that the Time Craft app won't work properly or at all.",
                 style: termstyle(),
               ),
               heightedbox(),
