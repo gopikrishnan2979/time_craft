@@ -25,11 +25,11 @@ class AboutUs extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
+      actions: const[
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Text(
+             Text(
               'Created by :- Gopikrishnan Nair S',
               style: TextStyle(fontFamily: 'Peddana', fontSize: 13),
             ),
