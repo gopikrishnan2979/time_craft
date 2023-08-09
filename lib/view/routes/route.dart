@@ -22,7 +22,9 @@ import 'package:time_craft/view/screens/orders/orders.dart';
 import 'package:time_craft/view/screens/product/product_details.dart';
 import 'package:time_craft/view/screens/profile/profile.dart';
 import 'package:time_craft/view/screens/search/search.dart';
+import 'package:time_craft/view/screens/settings/privacy_policy.dart';
 import 'package:time_craft/view/screens/settings/settings.dart';
+import 'package:time_craft/view/screens/settings/terms_and_conditions.dart';
 import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 import 'package:time_craft/view/screens/signin_signup/signup/signup.dart';
 import 'package:time_craft/view/screens/splashscreen/splash_screen.dart';
@@ -118,11 +120,16 @@ class AppRoute {
         );
       case OrderPlaced.routename:
         return MaterialPageRoute(builder: (ctx) => const OrderPlaced());
+      case TermsAndCondition.routename:
+        return MaterialPageRoute(builder: (ctx) => const TermsAndCondition());
+      case PrivacyPolicy.routename:
+        return MaterialPageRoute(builder: (ctx) => const PrivacyPolicy());
       case OrderDetails.routename:
         return MaterialPageRoute(builder: (ctx) {
           final arg = routeSettings.arguments as OrderDetailsArg;
           return OrderDetails(orderDetails: arg.order, orderId: arg.orderId);
         });
+
       default:
         return _errorRoute();
     }

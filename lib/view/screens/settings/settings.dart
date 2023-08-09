@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:time_craft/services/firebase/auth.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
+import 'package:time_craft/view/screens/settings/about_us.dart';
+import 'package:time_craft/view/screens/settings/privacy_policy.dart';
+import 'package:time_craft/view/screens/settings/terms_and_conditions.dart';
 import 'package:time_craft/view/screens/settings/widgets/settings_tile.dart';
 
 class Settings extends StatelessWidget {
@@ -21,19 +24,24 @@ class Settings extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const AboutUs(),
+                );
+              },
               child: const SettingsTiles(icon: Icon(Icons.info), text: 'About'),
             ),
             InkWell(
-              onTap: () {},
-              child: const SettingsTiles(icon: Icon(Icons.share), text: 'Invite Friends'),
-            ),
-            InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(PrivacyPolicy.routename);
+              },
               child: const SettingsTiles(icon: Icon(Icons.shield_outlined), text: 'Privacy Policy'),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(TermsAndCondition.routename);
+              },
               child: const SettingsTiles(icon: Icon(Icons.note), text: 'Terms & Conditions'),
             ),
             InkWell(
