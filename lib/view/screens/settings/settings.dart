@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:time_craft/services/firebase/auth.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
 import 'package:time_craft/view/screens/settings/about_us.dart';
 import 'package:time_craft/view/screens/settings/privacy_policy.dart';
 import 'package:time_craft/view/screens/settings/terms_and_conditions.dart';
 import 'package:time_craft/view/screens/settings/widgets/settings_tile.dart';
+import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -45,7 +47,7 @@ class Settings extends StatelessWidget {
               child: const SettingsTiles(icon: Icon(Icons.note), text: 'Terms & Conditions'),
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
                 showDialog(
                   context: context,
                   barrierDismissible: false,
@@ -61,7 +63,17 @@ class Settings extends StatelessWidget {
                     ),
                   ),
                 );
-                Auth(context: context).signOut();
+                String? error = await Auth().signOut();
+                if (context.mounted) {
+                  if (error == null) {
+                    Navigator.popUntil(context, (route) => false);
+                    Navigator.of(context).pushNamed(SignInPage.routename);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(text: 'Logged out'));
+                  } else {
+                    Navigator.of(context).pop();
+                    alertshower(context: context, text: error);
+                  }
+                }
               },
               child: const SettingsTiles(icon: Icon(Icons.logout), text: 'Logout'),
             )

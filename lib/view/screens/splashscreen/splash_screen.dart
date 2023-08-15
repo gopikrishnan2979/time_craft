@@ -37,7 +37,7 @@ class SplashScreen extends StatelessWidget {
       });
     } else {
       FirebaseInstances.uid = user.uid;
-      await collectUserData(context, uid: user.uid);
+      await collectUserData( uid: user.uid);
       if (context.mounted) {
         await Provider.of<WishlistController>(context, listen: false).getwishlist();
       }

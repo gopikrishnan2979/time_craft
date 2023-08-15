@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/userdata_controllers/obsecure_controller.dart';
 import 'package:time_craft/services/firebase/auth.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/common/widgets/textfield_widget.dart';
 
@@ -54,8 +55,16 @@ class TextfieldSignin extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () {
-              Auth(context: context).resetPassword(email: emailcontroller.text);
+            onPressed: () async {
+              String? error =
+                  await Auth().resetPassword(email: emailcontroller.text);
+              if (context.mounted) {
+                if (error == null) {
+                  alertshower(text: 'Verification email has been send', context: context);
+                } else {
+                  alertshower(text: error, context: context);
+                }
+              }
             },
             child: Text('Forget Password', style: interbluebold),
           ),

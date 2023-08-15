@@ -53,11 +53,29 @@ class ItemCard extends StatelessWidget {
                 right: 0,
                 child: Consumer<WishlistController>(builder: (context, wishlistcontroller, child) {
                   return IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (wishlistcontroller.wishlist.contains(productId)) {
-                        wishlistCon.remove(productId: productId, context: context);
+                        String? error =
+                            await wishlistCon.remove(productId: productId);
+                        if (context.mounted) {
+                          if (error == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(
+                                text: 'Removed from wishlist', color: removingColor));
+                          } else {
+                            alertshower(text: error, context: context);
+                          }
+                        }
                       } else {
-                        wishlistCon.add(productId: productId, context: context);
+                        String? error =
+                            await wishlistCon.add(productId: productId);
+                        if (context.mounted) {
+                          if (error == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                snackBarDesign(text: 'Added to wishlist', color: addingColor));
+                          } else {
+                            alertshower(text: error, context: context);
+                          }
+                        }
                       }
                     },
                     icon: Icon(

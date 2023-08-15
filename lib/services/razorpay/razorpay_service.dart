@@ -7,6 +7,7 @@ import 'package:time_craft/model/order_model.dart';
 import 'package:time_craft/services/firebase/order.dart';
 import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
+import 'package:time_craft/view/screens/checkout/order_placed.dart';
 import 'package:uuid/uuid.dart';
 
 class RazorPayService {
@@ -65,11 +66,10 @@ class RazorPayService {
   }
 
   //Payment is success
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     ScaffoldMessenger.of(context)
         .showSnackBar(snackBarDesign(text: 'Payment Successful', color: addingColor));
-
-    OrderServices(_order, context: context).addOrder();
+    _addToDatabase();
   }
 
   //Payment failed to proceed;
@@ -82,5 +82,17 @@ class RazorPayService {
   void _handleExternalWallet(ExternalWalletResponse response) {
     ScaffoldMessenger.of(context)
         .showSnackBar(snackBarDesign(text: 'Wallet selected', color: addingColor));
+  }
+
+//adding the order to the database with payment done
+  _addToDatabase() async {
+    String? error = await OrderServices(_order).addOrder();
+    if (context.mounted) {
+      if (error == null) {
+        Navigator.of(context).pushReplacementNamed(OrderPlaced.routename);
+      } else {
+        alertshower(text: error, context: context);
+      }
+    }
   }
 }

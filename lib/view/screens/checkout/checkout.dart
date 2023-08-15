@@ -9,6 +9,7 @@ import 'package:time_craft/services/firebase/order.dart';
 import 'package:time_craft/services/razorpay/razorpay_service.dart';
 import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
+import 'package:time_craft/view/screens/checkout/order_placed.dart';
 import 'package:time_craft/view/screens/checkout/widgets/address_part.dart';
 import 'package:time_craft/view/screens/checkout/widgets/payment_part.dart';
 import 'package:time_craft/view/screens/checkout/widgets/scrolling_part.dart';
@@ -61,7 +62,7 @@ class CheckOutScrn extends StatelessWidget {
     );
   }
 
-  orderPlacer(BuildContext context) {
+  orderPlacer(BuildContext context) async {
     PaymentSelector payController = Provider.of<PaymentSelector>(context, listen: false);
     CheckoutAddControl addControl = Provider.of<CheckoutAddControl>(context, listen: false);
 
@@ -84,7 +85,14 @@ class CheckOutScrn extends StatelessWidget {
             totalPrice: checkoutData.totalPrice,
             orderPlacedDate: date,
             orderStatus: 'Order Placed');
-        OrderServices(orderData, context: context).addOrder();
+        String? error = await OrderServices(orderData).addOrder();
+        if (context.mounted) {
+          if (error == null) {
+            Navigator.of(context).pushReplacementNamed(OrderPlaced.routename);
+          } else {
+            alertshower(text: error, context: context);
+          }
+        }
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(text: 'Address not selected'));

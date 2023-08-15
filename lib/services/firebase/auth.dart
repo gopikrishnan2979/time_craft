@@ -1,74 +1,65 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
-import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/services/firebase/userdata_getter.dart';
-import 'package:time_craft/view/common/widgets/notification_widgets.dart';
-import 'package:time_craft/view/screens/home/home.dart';
-import 'package:time_craft/view/screens/signin_signup/signin/signin.dart';
 
 //Firebase auth service
 class Auth {
-  Auth({required this.context});
-  final BuildContext context;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 // --------------------------create new user with email
-  createNewUserWithEmailandPassword({
+  Future<String?> createNewUserWithEmailandPassword({
     required String email,
     required String password,
     required String phone,
     required String username,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
+      return await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) async{
         User? user = value.user;
         FirebaseInstances.uid = user!.uid;
-        collectUserData(context, uid: user.uid);
+        bool didGetUser=await collectUserData( uid: user.uid);
         FirebaseInstances.user.doc(user.uid).set({
           'name': username,
           'email': email,
           'phone': phone,
           'image': user.photoURL,
         }, SetOptions(merge: true));
-        Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(Home.routename);
-        return value;
+        if (didGetUser) {
+          return 'error occured in collecting user data';
+        }
+        return null;
       });
     } on FirebaseException catch (e) {
-      Navigator.of(context).pop();
-      alertshower(context: context, text: e.message);
-    } catch (e) {
-      alertshower(context: context, text: e.toString());
+      return e.message ?? '';
     }
   }
 
 //--------------------------signing in to a existing account with email
-  signInexistingWithEmailAndPassword({required String email, required String password}) async {
+  Future<String?> signInexistingWithEmailAndPassword(
+      {required String email, required String password}) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password).then((value) async {
+      return await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
         FirebaseInstances.uid = value.user!.uid;
-        collectUserData(context, uid: value.user!.uid);
-        await Provider.of<WishlistController>(context, listen: false).getwishlist();
-        Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(Home.routename);
-        return value;
+        bool didGetUser=await collectUserData( uid: value.user!.uid);
+        if (didGetUser) {
+          return 'error occured in collecting user data';
+        }
+        return null;
       });
     } on FirebaseException catch (e) {
-      Navigator.of(context).pop();
-      alertshower(context: context, text: e.message);
-    } catch (e) {
-      alertshower(context: context, text: e.toString());
+      return e.message ?? '';
     }
   }
 
 //-------------------------Sign in using google credentials
-  signInUsingGoogle() async {
+  Future<String?> signInUsingGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -77,55 +68,51 @@ class Auth {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      await _auth.signInWithCredential(credential).then((value) async {
+      return await _auth.signInWithCredential(credential).then((value) async {
         User? user = value.user;
         FirebaseInstances.uid = user!.uid;
-        collectUserData(context, uid: user.uid);
+        bool didGetUser = await collectUserData(uid: user.uid);
+        
         FirebaseInstances.user.doc(user.uid).set({
           'name': user.displayName,
           'email': user.email,
           'phone': user.phoneNumber,
           'image': user.photoURL,
         }, SetOptions(merge: true));
-        await Provider.of<WishlistController>(context, listen: false).getwishlist();
-        Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed(Home.routename);
+        if (didGetUser) {
+          return 'error occured in collecting user data';
+        }
+        return null;
       });
+    } on FirebaseException catch (e) {
+      return e.message ?? '';
     } catch (e) {
-      alertshower(context: context, text: e.toString());
+      return e.toString();
     }
   }
 
 // ---------------------------------signout fromt the app
-  signOut() async {
+  Future<String?> signOut() async {
     try {
-      await _auth.signOut().then((value) {
-        Navigator.popUntil(context, (route) => false);
-        Navigator.of(context).pushNamed(SignInPage.routename);
-        ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(text: 'Logged out'));
+      return await _auth.signOut().then((value) {
         FirebaseInstances.uid;
         FirebaseInstances.userEmail = null;
         FirebaseInstances.userName = null;
         FirebaseInstances.userPhone = null;
+        return null;
       });
     } on FirebaseException catch (e) {
-      Navigator.of(context).pop();
-      alertshower(context: context, text: e.message);
-    } catch (e) {
-      alertshower(context: context, text: e.toString());
+      return e.message ?? '';
     }
   }
 
 //---------------password reseting feature for reset the password as the user forget the password
 
-  resetPassword({required String email}) async {
+  Future<String?> resetPassword({required String email}) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email).then((value) {
-        alertshower(text: 'Verification email has been send', context: context);
-      });
-      return;
+      return await _auth.sendPasswordResetEmail(email: email).then((value) => null);
     } on FirebaseException catch (e) {
-      alertshower(text: e.message, context: context);
+      return e.message ?? '';
     }
   }
 }

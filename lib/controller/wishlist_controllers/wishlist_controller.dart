@@ -4,6 +4,7 @@ import 'package:time_craft/services/firebase/wishlist.dart';
 
 //wishlist screen controller for controlling the wishlist
 class WishlistController extends ChangeNotifier {
+
   List<String> wishlist = [];
 
 //-----get the wishlist data from the database as the user enters
@@ -20,15 +21,16 @@ class WishlistController extends ChangeNotifier {
   }
 
 //-----add the item to the wishlist
-  add({required String productId, required BuildContext context}) {
+  Future<String?>add({required String productId}) async {
     wishlist.add(productId);
     notifyListeners();
-    WishlistService(context: context).addToWishlist(productId);
+    return await WishlistService().addToWishlist(productId);
   }
+
 //-----remove the item from the wishlist
-  remove({required String productId, required BuildContext context}) {
+ Future<String?> remove({required String productId}) async{
     wishlist.remove(productId);
     notifyListeners();
-    WishlistService(context: context).removeFromWishlist(productId);
+    return await WishlistService().removeFromWishlist(productId);
   }
 }

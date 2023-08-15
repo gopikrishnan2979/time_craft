@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
 import 'package:time_craft/model/arg_models/product_scrn_arg.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/product/widgets/qty_alert.dart';
 import 'package:time_craft/view/common/widgets/appbar.dart';
@@ -25,11 +26,27 @@ class ProductDetails extends StatelessWidget {
               padding: EdgeInsets.only(right: kwidth * 0.03),
               child: Consumer<WishlistController>(builder: (context, wishlistController, child) {
                 return IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (wishlistController.wishlist.contains(arg.data.id)) {
-                      wishlistCon.remove(productId: arg.data.id, context: context);
+                      String? error = await wishlistCon.remove(productId: arg.data.id);
+                      if (context.mounted) {
+                        if (error == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              snackBarDesign(text: 'Removed from wishlist', color: removingColor));
+                        } else {
+                          alertshower(text: error, context: context);
+                        }
+                      }
                     } else {
-                      wishlistCon.add(productId: arg.data.id, context: context);
+                      String? error = await wishlistCon.add(productId: arg.data.id);
+                      if (context.mounted) {
+                        if (error == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              snackBarDesign(text: 'Added to wishlist', color: addingColor));
+                        } else {
+                          alertshower(text: error, context: context);
+                        }
+                      }
                     }
                   },
                   icon: Icon(

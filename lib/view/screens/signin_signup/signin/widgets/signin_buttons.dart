@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
 import 'package:time_craft/services/firebase/auth.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
+import 'package:time_craft/view/screens/home/home.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton(
@@ -21,11 +25,23 @@ class SignInButton extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: khieght * 0.0),
             child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (formkey.currentState!.validate()) {
                     loading(context);
-                    Auth(context: context).signInexistingWithEmailAndPassword(
+                    String? error = await Auth().signInexistingWithEmailAndPassword(
                         email: emailcontroller.text, password: passwordcontroller.text);
+                    if (context.mounted) {
+                      if (error == null) {
+                        await Provider.of<WishlistController>(context, listen: false).getwishlist();
+                        if (context.mounted) {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushReplacementNamed(Home.routename);
+                        }
+                      } else {
+                        Navigator.of(context).pop();
+                        alertshower(context: context, text: error);
+                      }
+                    }
                   }
                 },
                 style: buttonstyle(),
@@ -36,9 +52,16 @@ class SignInButton extends StatelessWidget {
             style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 loading(context);
-                Auth(context: context).signInUsingGoogle();
+                String? error = await Auth().signInUsingGoogle();
+                if (context.mounted && error == null) {
+                  await Provider.of<WishlistController>(context, listen: false).getwishlist();
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacementNamed(Home.routename);
+                  }
+                }
               },
               style: buttonstyle(),
               child: buttonchild(text: 'Continue with google'))

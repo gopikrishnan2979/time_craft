@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:time_craft/services/firebase/auth.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
+import 'package:time_craft/view/screens/home/home.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton(
@@ -20,7 +22,7 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             if (formkey.currentState!.validate()) {
               showDialog(
                 context: context,
@@ -38,11 +40,20 @@ class SignUpButton extends StatelessWidget {
                   ),
                 ),
               );
-              Auth(context: context).createNewUserWithEmailandPassword(
+              String? error = await Auth().createNewUserWithEmailandPassword(
                   email: emailcontroller.text.trim(),
                   password: passwordcontroller.text.trim(),
                   phone: phonecontroller.text.trim(),
                   username: namecontroller.text.trim());
+              if (context.mounted) {
+                if (error == null) {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed(Home.routename);
+                } else {
+                  Navigator.of(context).pop();
+                  alertshower(context: context, text: error);
+                }
+              }
             }
           },
           style: buttonstyle(),
