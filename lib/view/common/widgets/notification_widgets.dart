@@ -38,12 +38,15 @@ Widget errorShower() {
 }
 
 alertshower({required String? text, required BuildContext context}) {
+  if(text==null||text.isEmpty){
+    text='Something error happened';
+  }
   showDialog(
     barrierDismissible: false,
     context: context,
     builder: (context) => AlertDialog(
       title: const Text('Alert'),
-      content: Text(text ?? 'Something error happened'),
+      content: Text(text!),
       actions: [
         TextButton(
           onPressed: () {

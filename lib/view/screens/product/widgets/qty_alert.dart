@@ -6,6 +6,7 @@ import 'package:time_craft/controller/product_controllers/product_varient_contro
 import 'package:time_craft/model/checkout_model.dart';
 import 'package:time_craft/model/product_model.dart';
 import 'package:time_craft/services/firebase/cart.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 import 'package:time_craft/view/screens/checkout/checkout.dart';
 
@@ -113,13 +114,13 @@ class QtyAlert extends StatelessWidget {
     );
   }
 
-  addToCart({required BuildContext context}) {
+  addToCart({required BuildContext context}) async {
     QtyController qtyController = Provider.of<QtyController>(ctx, listen: false);
     VarientController vntController = Provider.of<VarientController>(ctx, listen: false);
     int varientIndex = vntController.selectedIdx;
     String varient = data.varients[varientIndex];
     int qty = qtyController.qty;
-    CartService(context: ctx).addToCart(
+    String? error = await CartService().addToCart(
       productId: data.id,
       varient: varient,
       qty: qty,
@@ -127,7 +128,14 @@ class QtyAlert extends StatelessWidget {
       name: data.name,
       imageLink: data.imagelist[0],
     );
-    Navigator.of(context).pop();
+    if (context.mounted) {
+      if (error == null) {
+        ScaffoldMessenger.of(ctx).showSnackBar(
+          snackBarDesign(text: 'Item Added To Cart', color: addingColor),
+        );
+      }
+      Navigator.of(context).pop();
+    }
   }
 
   buyNow({required BuildContext context}) {

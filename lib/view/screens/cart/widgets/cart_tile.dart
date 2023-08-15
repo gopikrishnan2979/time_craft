@@ -38,19 +38,39 @@ class CartTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  incAndDecButton(context: context, index: index),
+                  incAndDecButton(
+                    onTap: () async {
+                      String? error = await cartController.productQtyDec(index: index);
+                      if (error != null && context.mounted) {
+                        alertshower(context: context, text: error.toString());
+                      }
+                    },
+                  ),
                   Text(
                     '${cartController.cartList[index].quantity}',
                     style: GoogleFonts.inter(fontSize: 20),
                   ),
-                  incAndDecButton(context: context, index: index, isInc: true)
+                  incAndDecButton(
+                    onTap: () async {
+                      String? error = await cartController.productQtyInc(index: index);
+                      if (error != null && context.mounted) {
+                        alertshower(context: context, text: error.toString());
+                      }
+                    },
+                    isInc: true,
+                  )
                 ],
               ),
             ),
             ElevatedButton(
               onPressed: () {
-                Provider.of<CartController>(context, listen: false)
-                    .productDeleteConfirmation(index: index, context: context);
+                showDialog(
+                  context: context,
+                  builder: (_) => _deleteConfirmation(
+                    context: context,
+                    cartController: cartController,
+                  ),
+                );
               },
               style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(black)),
               child: Text('DELETE', style: interwhitebold),
@@ -61,16 +81,9 @@ class CartTile extends StatelessWidget {
     );
   }
 
-  Widget incAndDecButton({required BuildContext context, required int index, bool isInc = false}) {
+  Widget incAndDecButton({bool isInc = false, required Function() onTap}) {
     return InkWell(
-      onTap: () {
-        CartController controller = Provider.of<CartController>(context, listen: false);
-        if (isInc) {
-          controller.productQtyInc(index: index, context: context);
-        } else {
-          controller.productQtyDec(index: index, context: context);
-        }
-      },
+      onTap: onTap,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.5),
         child: ColoredBox(
@@ -86,6 +99,53 @@ class CartTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  _deleteConfirmation({required BuildContext context, required CartController cartController}) {
+    return AlertDialog(
+      title: Row(
+        children: [
+          const Icon(Icons.warning_amber_rounded, color: Colors.red),
+          Text(
+            'Delete',
+            style: GoogleFonts.inter(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      content: const Text('Are you sure, Delete this item'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Cancel', style: interbold),
+        ),
+        TextButton(
+          onPressed: () async {
+            String? error = await cartController.productDelete(index: index);
+            if (context.mounted) {
+              if (error == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    snackBarDesign(text: 'Item Deleted From Cart', color: removingColor));
+              } else {
+                alertshower(text: error, context: context);
+              }
+              Navigator.of(context).pop();
+            }
+          },
+          child: Text(
+            'Delete',
+            style: GoogleFonts.inter(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

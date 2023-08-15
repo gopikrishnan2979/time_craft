@@ -17,7 +17,7 @@ class AddressTextController extends ChangeNotifier {
   final TextEditingController landmark = TextEditingController();
 
 // this function helps to post the newly entered address to the database as the user is saved 
-  addressAdding(BuildContext context) async{
+  Future<String?>addressAdding() async{
     AddressModel address = AddressModel(
         localAddress: localAddressCon.text.trim(),
         city: cityController.text.trim(),
@@ -25,6 +25,7 @@ class AddressTextController extends ChangeNotifier {
         state: stateController.text.trim(),
         pincode: pinController.text.trim(),
         landmark: landmark.text.trim()==''?'no landmark':landmark.text.trim());
-    await AddressService(context: context).addAddress(address: address);
+    return await AddressService().addAddress(address: address);
+    
   }
 }

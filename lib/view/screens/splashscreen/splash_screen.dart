@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_craft/controller/network_controllers/network_connectivity.dart';
-import 'package:time_craft/controller/userdata_controllers/userdata_getter.dart';
+import 'package:time_craft/services/firebase/userdata_getter.dart';
 import 'package:time_craft/controller/wishlist_controllers/wishlist_controller.dart';
 import 'package:time_craft/model/firebase_instance_model.dart';
 import 'package:time_craft/view/screens/home/home.dart';

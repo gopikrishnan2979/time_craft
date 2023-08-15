@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:time_craft/controller/address_controllers/address_scrn_controller.dart';
 import 'package:time_craft/controller/address_controllers/address_text_controller.dart';
 import 'package:time_craft/services/validator/validator_textfield.dart';
+import 'package:time_craft/view/common/widgets/notification_widgets.dart';
 import 'package:time_craft/view/core/styles.dart';
 
 final GlobalKey<FormState> formkey = GlobalKey<FormState>();
@@ -122,7 +123,15 @@ class AddressAdding extends StatelessWidget {
               AddressScrnController addScrnController =
                   Provider.of<AddressScrnController>(ctx, listen: false);
               Navigator.of(context).pop();
-              await controller.addressAdding(ctx);
+              String? error = await controller.addressAdding();
+              if (ctx.mounted) {
+                if (error == null) {
+                  ScaffoldMessenger.of(ctx).showSnackBar(
+                      snackBarDesign(text: 'Address added successfully', color: addingColor));
+                } else {
+                  alertshower(text: error, context: context);
+                }
+              }
               addScrnController.getAddressList();
             }
           },
