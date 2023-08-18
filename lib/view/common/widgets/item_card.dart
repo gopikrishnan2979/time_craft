@@ -25,7 +25,6 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WishlistController wishlistCon = Provider.of<WishlistController>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -55,8 +54,7 @@ class ItemCard extends StatelessWidget {
                   return IconButton(
                     onPressed: () async {
                       if (wishlistcontroller.wishlist.contains(productId)) {
-                        String? error =
-                            await wishlistCon.remove(productId: productId);
+                        String? error = await wishlistcontroller.remove(productId: productId);
                         if (context.mounted) {
                           if (error == null) {
                             ScaffoldMessenger.of(context).showSnackBar(snackBarDesign(
@@ -66,8 +64,7 @@ class ItemCard extends StatelessWidget {
                           }
                         }
                       } else {
-                        String? error =
-                            await wishlistCon.add(productId: productId);
+                        String? error = await wishlistcontroller.add(productId: productId);
                         if (context.mounted) {
                           if (error == null) {
                             ScaffoldMessenger.of(context).showSnackBar(

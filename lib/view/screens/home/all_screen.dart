@@ -21,7 +21,8 @@ class AllScreens extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Padding(padding: EdgeInsets.symmetric(vertical: 10.0), child: CarouselHome()),
+              const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0), child: CarouselHome()),
               StreamBuilder(
                 stream: FirebaseInstances.products.snapshots(),
                 builder: (context, snapshot) {
